@@ -35,58 +35,35 @@ let searchText = "";
 
 
 /* =========================================================
+   FUNCIÓN PARA NORMALIZAR TEXTO
+========================================================= */
+
+function normalizeText(text) {
+
+    return String(text || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+
+}
+
+
+/* =========================================================
    CAMBIAR CATEGORÍA PRINCIPAL
 ========================================================= */
 
 mainCategories.forEach(button => {
 
-    button.addEventListener("click", () => {
+    button.addEventListener("click", function () {
 
         /* -----------------------------------------
-           Obtener categoría seleccionada
+           Obtener género seleccionado
         ----------------------------------------- */
 
-        selectedGender = button.dataset.gender;
-
-        /* -----------------------------------------
-           Quitar estado activo de todas
-        ----------------------------------------- */
-
-        mainCategories.forEach(item => {
-            item.classList.remove("active");
-        });
-
-        /* -----------------------------------------
-           Activar la seleccionada
-        ----------------------------------------- */
-
-        button.classList.add("active");
-
-
-        /* -----------------------------------------
-           Mostrar las subcategorías correspondientes
-        ----------------------------------------- */
-
-        subcategoriesGroups.forEach(group => {
-
-            group.classList.remove("active");
-
-        });
-
-
-        if (selectedGender !== "todos") {
-
-            const selectedGroup = document.querySelector(
-                `[data-subcategory-group="${selectedGender}"]`
-            );
-
-            if (selectedGroup) {
-
-                selectedGroup.classList.add("active");
-
-            }
-
-        }
+        selectedGender = normalizeText(
+            button.dataset.gender
+        );
 
 
         /* -----------------------------------------
@@ -96,26 +73,74 @@ mainCategories.forEach(button => {
         selectedCategory = "todos";
 
 
-        subcategories.forEach(item => {
+        /* -----------------------------------------
+           Quitar activo de todas las categorías
+        ----------------------------------------- */
+
+        mainCategories.forEach(item => {
 
             item.classList.remove("active");
 
         });
 
 
-        /* Activar "Todas" dentro del grupo seleccionado */
+        /* -----------------------------------------
+           Activar categoría seleccionada
+        ----------------------------------------- */
+
+        button.classList.add("active");
+
+
+        /* -----------------------------------------
+           Ocultar todos los grupos
+        ----------------------------------------- */
+
+        subcategoriesGroups.forEach(group => {
+
+            group.classList.remove("active");
+
+        });
+
+
+        /* -----------------------------------------
+           Mostrar grupo correspondiente
+        ----------------------------------------- */
 
         if (selectedGender !== "todos") {
 
-            const selectedGroup = document.querySelector(
-                `[data-subcategory-group="${selectedGender}"]`
-            );
+            const selectedGroup =
+                document.querySelector(
+                    `.subcategories[data-subcategory-group="${selectedGender}"]`
+                );
+
 
             if (selectedGroup) {
 
-                const allButton = selectedGroup.querySelector(
-                    '[data-category="todos"]'
-                );
+                selectedGroup.classList.add("active");
+
+
+                /* -----------------------------------------
+                   Reiniciar botones de subcategoría
+                ----------------------------------------- */
+
+                selectedGroup
+                    .querySelectorAll(".subcategory")
+                    .forEach(item => {
+
+                        item.classList.remove("active");
+
+                    });
+
+
+                /* -----------------------------------------
+                   Activar "Todas"
+                ----------------------------------------- */
+
+                const allButton =
+                    selectedGroup.querySelector(
+                        '.subcategory[data-category="todos"]'
+                    );
+
 
                 if (allButton) {
 
@@ -129,7 +154,22 @@ mainCategories.forEach(button => {
 
 
         /* -----------------------------------------
-           Aplicar filtros
+           Si se selecciona TODOS
+        ----------------------------------------- */
+
+        if (selectedGender === "todos") {
+
+            subcategories.forEach(item => {
+
+                item.classList.remove("active");
+
+            });
+
+        }
+
+
+        /* -----------------------------------------
+           Aplicar filtro
         ----------------------------------------- */
 
         filterProducts();
@@ -145,20 +185,46 @@ mainCategories.forEach(button => {
 
 subcategories.forEach(button => {
 
-    button.addEventListener("click", () => {
+    button.addEventListener("click", function () {
 
         /* -----------------------------------------
-           Obtener categoría seleccionada
+           Obtener género de la subcategoría
         ----------------------------------------- */
 
-        selectedCategory = button.dataset.category;
+        const buttonGender =
+            normalizeText(button.dataset.gender);
 
 
         /* -----------------------------------------
-           Quitar estado activo
+           Obtener categoría
         ----------------------------------------- */
 
-        const currentGroup = button.closest(".subcategories");
+        selectedCategory =
+            normalizeText(button.dataset.category);
+
+
+        /* -----------------------------------------
+           Asegurar que el género corresponda
+        ----------------------------------------- */
+
+        if (buttonGender) {
+
+            selectedGender = buttonGender;
+
+        }
+
+
+        /* -----------------------------------------
+           Grupo actual
+        ----------------------------------------- */
+
+        const currentGroup =
+            button.closest(".subcategories");
+
+
+        /* -----------------------------------------
+           Quitar activo del grupo
+        ----------------------------------------- */
 
         if (currentGroup) {
 
@@ -174,14 +240,39 @@ subcategories.forEach(button => {
 
 
         /* -----------------------------------------
-           Activar botón seleccionado
+           Activar botón
         ----------------------------------------- */
 
         button.classList.add("active");
 
 
         /* -----------------------------------------
-           Aplicar filtros
+           Activar categoría principal correspondiente
+        ----------------------------------------- */
+
+        mainCategories.forEach(categoryButton => {
+
+            const categoryGender =
+                normalizeText(categoryButton.dataset.gender);
+
+
+            if (categoryGender === selectedGender) {
+
+                mainCategories.forEach(item => {
+
+                    item.classList.remove("active");
+
+                });
+
+                categoryButton.classList.add("active");
+
+            }
+
+        });
+
+
+        /* -----------------------------------------
+           Aplicar filtro
         ----------------------------------------- */
 
         filterProducts();
@@ -197,11 +288,10 @@ subcategories.forEach(button => {
 
 if (searchInput) {
 
-    searchInput.addEventListener("input", () => {
+    searchInput.addEventListener("input", function () {
 
-        searchText = searchInput.value
-            .toLowerCase()
-            .trim();
+        searchText =
+            normalizeText(searchInput.value);
 
 
         filterProducts();
@@ -217,15 +307,26 @@ if (searchInput) {
 
 if (clearSearch) {
 
-    clearSearch.addEventListener("click", () => {
+    clearSearch.addEventListener("click", function () {
 
-        searchInput.value = "";
+        if (searchInput) {
+
+            searchInput.value = "";
+
+        }
+
 
         searchText = "";
 
+
         filterProducts();
 
-        searchInput.focus();
+
+        if (searchInput) {
+
+            searchInput.focus();
+
+        }
 
     });
 
@@ -241,33 +342,34 @@ function filterProducts() {
     let visibleProducts = 0;
 
 
+    /* -----------------------------------------
+       Recorrer productos
+    ----------------------------------------- */
+
     products.forEach(product => {
 
         /* -----------------------------------------
-           Información del producto
+           Datos del producto
         ----------------------------------------- */
 
         const productGender =
-            product.dataset.gender;
+            normalizeText(product.dataset.gender);
+
 
         const productCategory =
-            product.dataset.category;
+            normalizeText(product.dataset.category);
+
 
         const productName =
-            product.dataset.name.toLowerCase();
+            normalizeText(product.dataset.name);
 
-
-        /* -----------------------------------------
-           Texto completo del producto
-           para la búsqueda
-        ----------------------------------------- */
 
         const productText =
-            product.textContent.toLowerCase();
+            normalizeText(product.textContent);
 
 
         /* -----------------------------------------
-           Comprobar género
+           Coincidencia de género
         ----------------------------------------- */
 
         const genderMatches =
@@ -276,7 +378,7 @@ function filterProducts() {
 
 
         /* -----------------------------------------
-           Comprobar categoría
+           Coincidencia de categoría
         ----------------------------------------- */
 
         const categoryMatches =
@@ -285,7 +387,7 @@ function filterProducts() {
 
 
         /* -----------------------------------------
-           Comprobar búsqueda
+           Coincidencia de búsqueda
         ----------------------------------------- */
 
         const searchMatches =
@@ -325,7 +427,7 @@ function filterProducts() {
 
 
     /* =====================================================
-       MENSAJE CUANDO NO HAY RESULTADOS
+       MENSAJE SIN RESULTADOS
     ===================================================== */
 
     if (noResults) {
@@ -341,6 +443,21 @@ function filterProducts() {
         }
 
     }
+
+
+    /* =====================================================
+       ACTUALIZAR CONTADOR DE PRODUCTOS
+    ===================================================== */
+
+    console.log(
+        "Angie Boutique:",
+        visibleProducts,
+        "productos visibles |",
+        "Género:",
+        selectedGender,
+        "| Categoría:",
+        selectedCategory
+    );
 
 }
 
