@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -202,48 +201,405 @@
 
 
 
-        <!-- FILTROS -->
+        <!-- =================================================
+             BUSCADOR
+        ================================================== -->
 
-        <div class="filters">
+        <div class="store-search">
 
-            <button class="filter active" data-category="todos">
-                Todos
+            <div class="search-box">
+
+                <span class="search-icon">
+                    🔎
+                </span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="¿Qué estás buscando?"
+                    autocomplete="off"
+                >
+
+                <button
+                    type="button"
+                    id="clearSearch"
+                    class="clear-search"
+                    aria-label="Limpiar búsqueda"
+                >
+                    ✕
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CATEGORÍAS PRINCIPALES
+        ================================================== -->
+
+        <div class="main-categories">
+
+            <button
+                class="main-category active"
+                data-gender="todos"
+                type="button"
+            >
+                🛍️ Todos
             </button>
 
-            <button class="filter" data-category="blusas">
-                Blusas
+
+            <button
+                class="main-category"
+                data-gender="mujer"
+                type="button"
+            >
+                👩 Mujer
             </button>
 
-            <button class="filter" data-category="vestidos">
-                Vestidos
+
+            <button
+                class="main-category"
+                data-gender="hombre"
+                type="button"
+            >
+                👨 Hombre
             </button>
 
-            <button class="filter" data-category="pantalones">
-                Pantalones
+
+            <button
+                class="main-category"
+                data-gender="nina"
+                type="button"
+            >
+                👧 Niña
             </button>
 
-            <button class="filter" data-category="jeans">
-                Jeans
-            </button>
 
-            <button class="filter" data-category="conjuntos">
-                Conjuntos
+            <button
+                class="main-category"
+                data-gender="nino"
+                type="button"
+            >
+                👦 Niño
             </button>
 
         </div>
 
 
 
-        <!-- PRODUCTOS -->
+        <!-- =================================================
+             SUBCATEGORÍAS
+        ================================================== -->
 
-        <div class="products-grid" id="productsGrid">
+        <div class="subcategory-container">
+
+            <!-- SUBCATEGORÍAS MUJER -->
+
+            <div
+                class="subcategories active"
+                id="subcategories-mujer"
+                data-subcategory-group="mujer"
+            >
+
+                <button
+                    class="subcategory active"
+                    data-category="todos"
+                    data-gender="mujer"
+                    type="button"
+                >
+                    Todas
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="blusas"
+                    data-gender="mujer"
+                    type="button"
+                >
+                    Blusas
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="vestidos"
+                    data-gender="mujer"
+                    type="button"
+                >
+                    Vestidos
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="pantalones"
+                    data-gender="mujer"
+                    type="button"
+                >
+                    Pantalones
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="jeans"
+                    data-gender="mujer"
+                    type="button"
+                >
+                    Jeans
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="conjuntos"
+                    data-gender="mujer"
+                    type="button"
+                >
+                    Conjuntos
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="chaquetas"
+                    data-gender="mujer"
+                    type="button"
+                >
+                    Chaquetas
+                </button>
+
+            </div>
 
 
 
-            <!-- PRODUCTO 1 -->
+            <!-- SUBCATEGORÍAS HOMBRE -->
 
-            <article class="product-card"
-                     data-category="blusas">
+            <div
+                class="subcategories"
+                id="subcategories-hombre"
+                data-subcategory-group="hombre"
+            >
+
+                <button
+                    class="subcategory active"
+                    data-category="todos"
+                    data-gender="hombre"
+                    type="button"
+                >
+                    Todas
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="camisas"
+                    data-gender="hombre"
+                    type="button"
+                >
+                    Camisas
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="camisetas"
+                    data-gender="hombre"
+                    type="button"
+                >
+                    Camisetas
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="pantalones"
+                    data-gender="hombre"
+                    type="button"
+                >
+                    Pantalones
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="jeans"
+                    data-gender="hombre"
+                    type="button"
+                >
+                    Jeans
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="chaquetas"
+                    data-gender="hombre"
+                    type="button"
+                >
+                    Chaquetas
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="conjuntos"
+                    data-gender="hombre"
+                    type="button"
+                >
+                    Conjuntos
+                </button>
+
+            </div>
+
+
+
+            <!-- SUBCATEGORÍAS NIÑA -->
+
+            <div
+                class="subcategories"
+                id="subcategories-nina"
+                data-subcategory-group="nina"
+            >
+
+                <button
+                    class="subcategory active"
+                    data-category="todos"
+                    data-gender="nina"
+                    type="button"
+                >
+                    Todas
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="blusas"
+                    data-gender="nina"
+                    type="button"
+                >
+                    Blusas
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="vestidos"
+                    data-gender="nina"
+                    type="button"
+                >
+                    Vestidos
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="pantalones"
+                    data-gender="nina"
+                    type="button"
+                >
+                    Pantalones
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="jeans"
+                    data-gender="nina"
+                    type="button"
+                >
+                    Jeans
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="conjuntos"
+                    data-gender="nina"
+                    type="button"
+                >
+                    Conjuntos
+                </button>
+
+            </div>
+
+
+
+            <!-- SUBCATEGORÍAS NIÑO -->
+
+            <div
+                class="subcategories"
+                id="subcategories-nino"
+                data-subcategory-group="nino"
+            >
+
+                <button
+                    class="subcategory active"
+                    data-category="todos"
+                    data-gender="nino"
+                    type="button"
+                >
+                    Todas
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="camisetas"
+                    data-gender="nino"
+                    type="button"
+                >
+                    Camisetas
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="camisas"
+                    data-gender="nino"
+                    type="button"
+                >
+                    Camisas
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="pantalones"
+                    data-gender="nino"
+                    type="button"
+                >
+                    Pantalones
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="jeans"
+                    data-gender="nino"
+                    type="button"
+                >
+                    Jeans
+                </button>
+
+                <button
+                    class="subcategory"
+                    data-category="conjuntos"
+                    data-gender="nino"
+                    type="button"
+                >
+                    Conjuntos
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PRODUCTOS
+        ================================================== -->
+
+        <div
+            class="products-grid"
+            id="productsGrid"
+        >
+
+
+
+            <!-- =================================================
+                 PRODUCTO 1
+            ================================================== -->
+
+            <article
+                class="product-card"
+                data-gender="mujer"
+                data-category="blusas"
+                data-name="Blusa Aurora"
+            >
 
                 <div class="product-image">
 
@@ -253,7 +609,8 @@
 
                     <img
                         src="images/blusa_1.jpg"
-                        alt="Blusa elegante">
+                        alt="Blusa elegante"
+                    >
 
                 </div>
 
@@ -261,7 +618,7 @@
                 <div class="product-info">
 
                     <span class="category">
-                        BLUSAS
+                        MUJER · BLUSAS
                     </span>
 
                     <h3>
@@ -290,10 +647,9 @@
                     <button
                         class="add-cart"
                         data-name="Blusa Aurora"
-                        data-price="55900">
-
+                        data-price="55900"
+                    >
                         Agregar al carrito
-
                     </button>
 
                 </div>
@@ -302,10 +658,16 @@
 
 
 
-            <!-- PRODUCTO 2 -->
+            <!-- =================================================
+                 PRODUCTO 2
+            ================================================== -->
 
-            <article class="product-card"
-                     data-category="vestidos">
+            <article
+                class="product-card"
+                data-gender="mujer"
+                data-category="vestidos"
+                data-name="Vestido Luna"
+            >
 
                 <div class="product-image">
 
@@ -315,7 +677,8 @@
 
                     <img
                         src="images/vestido_1.jpg"
-                        alt="Vestido elegante">
+                        alt="Vestido elegante"
+                    >
 
                 </div>
 
@@ -323,7 +686,7 @@
                 <div class="product-info">
 
                     <span class="category">
-                        VESTIDOS
+                        MUJER · VESTIDOS
                     </span>
 
                     <h3>
@@ -348,10 +711,9 @@
                     <button
                         class="add-cart"
                         data-name="Vestido Luna"
-                        data-price="119900">
-
+                        data-price="119900"
+                    >
                         Agregar al carrito
-
                     </button>
 
                 </div>
@@ -360,16 +722,23 @@
 
 
 
-            <!-- PRODUCTO 3 -->
+            <!-- =================================================
+                 PRODUCTO 3
+            ================================================== -->
 
-            <article class="product-card"
-                     data-category="pantalones">
+            <article
+                class="product-card"
+                data-gender="mujer"
+                data-category="pantalones"
+                data-name="Pantalón Roma"
+            >
 
                 <div class="product-image">
 
                     <img
                         src="images/pantalon_1.jpg"
-                        alt="Pantalón de moda">
+                        alt="Pantalón de moda"
+                    >
 
                 </div>
 
@@ -377,7 +746,7 @@
                 <div class="product-info">
 
                     <span class="category">
-                        PANTALONES
+                        MUJER · PANTALONES
                     </span>
 
                     <h3>
@@ -402,10 +771,9 @@
                     <button
                         class="add-cart"
                         data-name="Pantalón Roma"
-                        data-price="99900">
-
+                        data-price="99900"
+                    >
                         Agregar al carrito
-
                     </button>
 
                 </div>
@@ -414,10 +782,16 @@
 
 
 
-            <!-- PRODUCTO 4 -->
+            <!-- =================================================
+                 PRODUCTO 4
+            ================================================== -->
 
-            <article class="product-card"
-                     data-category="jeans">
+            <article
+                class="product-card"
+                data-gender="mujer"
+                data-category="jeans"
+                data-name="Jean Milano"
+            >
 
                 <div class="product-image">
 
@@ -427,7 +801,8 @@
 
                     <img
                         src="images/jean_1.jpg"
-                        alt="Jean moderno">
+                        alt="Jean moderno"
+                    >
 
                 </div>
 
@@ -435,7 +810,7 @@
                 <div class="product-info">
 
                     <span class="category">
-                        JEANS
+                        MUJER · JEANS
                     </span>
 
                     <h3>
@@ -464,10 +839,9 @@
                     <button
                         class="add-cart"
                         data-name="Jean Milano"
-                        data-price="109900">
-
+                        data-price="109900"
+                    >
                         Agregar al carrito
-
                     </button>
 
                 </div>
@@ -476,10 +850,16 @@
 
 
 
-            <!-- PRODUCTO 5 -->
+            <!-- =================================================
+                 PRODUCTO 5
+            ================================================== -->
 
-            <article class="product-card"
-                     data-category="conjuntos">
+            <article
+                class="product-card"
+                data-gender="mujer"
+                data-category="conjuntos"
+                data-name="Conjunto París"
+            >
 
                 <div class="product-image">
 
@@ -489,7 +869,8 @@
 
                     <img
                         src="images/conjunto_1.jpg"
-                        alt="Conjunto femenino">
+                        alt="Conjunto femenino"
+                    >
 
                 </div>
 
@@ -497,7 +878,7 @@
                 <div class="product-info">
 
                     <span class="category">
-                        CONJUNTOS
+                        MUJER · CONJUNTOS
                     </span>
 
                     <h3>
@@ -522,10 +903,9 @@
                     <button
                         class="add-cart"
                         data-name="Conjunto París"
-                        data-price="149900">
-
+                        data-price="149900"
+                    >
                         Agregar al carrito
-
                     </button>
 
                 </div>
@@ -534,16 +914,23 @@
 
 
 
-            <!-- PRODUCTO 6 -->
+            <!-- =================================================
+                 PRODUCTO 6
+            ================================================== -->
 
-            <article class="product-card"
-                     data-category="blusas">
+            <article
+                class="product-card"
+                data-gender="mujer"
+                data-category="blusas"
+                data-name="Blusa París"
+            >
 
                 <div class="product-image">
 
                     <img
                         src="images/blusa_2.jpg"
-                        alt="Blusa casual">
+                        alt="Blusa casual"
+                    >
 
                 </div>
 
@@ -551,7 +938,7 @@
                 <div class="product-info">
 
                     <span class="category">
-                        BLUSAS
+                        MUJER · BLUSAS
                     </span>
 
                     <h3>
@@ -576,10 +963,9 @@
                     <button
                         class="add-cart"
                         data-name="Blusa París"
-                        data-price="64900">
-
+                        data-price="64900"
+                    >
                         Agregar al carrito
-
                     </button>
 
                 </div>
@@ -588,16 +974,23 @@
 
 
 
-            <!-- PRODUCTO 7 -->
+            <!-- =================================================
+                 PRODUCTO 7
+            ================================================== -->
 
-            <article class="product-card"
-                     data-category="vestidos">
+            <article
+                class="product-card"
+                data-gender="mujer"
+                data-category="vestidos"
+                data-name="Vestido Roma"
+            >
 
                 <div class="product-image">
 
                     <img
                         src="images/vestido_2.jpg"
-                        alt="Vestido casual">
+                        alt="Vestido casual"
+                    >
 
                 </div>
 
@@ -605,7 +998,7 @@
                 <div class="product-info">
 
                     <span class="category">
-                        VESTIDOS
+                        MUJER · VESTIDOS
                     </span>
 
                     <h3>
@@ -630,10 +1023,9 @@
                     <button
                         class="add-cart"
                         data-name="Vestido Roma"
-                        data-price="109900">
-
+                        data-price="109900"
+                    >
                         Agregar al carrito
-
                     </button>
 
                 </div>
@@ -642,16 +1034,23 @@
 
 
 
-            <!-- PRODUCTO 8 -->
+            <!-- =================================================
+                 PRODUCTO 8
+            ================================================== -->
 
-            <article class="product-card"
-                     data-category="jeans">
+            <article
+                class="product-card"
+                data-gender="mujer"
+                data-category="jeans"
+                data-name="Jean París"
+            >
 
                 <div class="product-image">
 
                     <img
                         src="images/jean_2.jpg"
-                        alt="Jean femenino">
+                        alt="Jean femenino"
+                    >
 
                 </div>
 
@@ -659,7 +1058,7 @@
                 <div class="product-info">
 
                     <span class="category">
-                        JEANS
+                        MUJER · JEANS
                     </span>
 
                     <h3>
@@ -684,10 +1083,9 @@
                     <button
                         class="add-cart"
                         data-name="Jean París"
-                        data-price="114900">
-
+                        data-price="114900"
+                    >
                         Agregar al carrito
-
                     </button>
 
                 </div>
@@ -696,6 +1094,33 @@
 
 
         </div>
+
+
+
+        <!-- =================================================
+             MENSAJE SIN RESULTADOS
+        ================================================== -->
+
+        <div
+            class="no-results"
+            id="noResults"
+            style="display: none;"
+        >
+
+            <div>
+                🔎
+            </div>
+
+            <h3>
+                No encontramos productos
+            </h3>
+
+            <p>
+                Intenta buscar otra prenda o categoría.
+            </p>
+
+        </div>
+
 
     </section>
 
@@ -725,7 +1150,10 @@
                 comodidad y personalidad.
             </p>
 
-            <a href="#coleccion" class="secondary-button">
+            <a
+                href="#coleccion"
+                class="secondary-button"
+            >
                 Ver colección
             </a>
 
@@ -759,20 +1187,41 @@
         <div class="contact-grid">
 
             <div>
-                <strong>📱 WhatsApp</strong>
-                <p>300 000 0000</p>
+
+                <strong>
+                    📱 WhatsApp
+                </strong>
+
+                <p>
+                    300 000 0000
+                </p>
+
             </div>
 
 
             <div>
-                <strong>📧 Email</strong>
-                <p>hola@angieboutique.com</p>
+
+                <strong>
+                    📧 Email
+                </strong>
+
+                <p>
+                    hola@angieboutique.com
+                </p>
+
             </div>
 
 
             <div>
-                <strong>📍 Ubicación</strong>
-                <p>Ciudad de ejemplo</p>
+
+                <strong>
+                    📍 Ubicación
+                </strong>
+
+                <p>
+                    Ciudad de ejemplo
+                </p>
+
             </div>
 
         </div>
@@ -785,10 +1234,16 @@
          CARRITO
     ================================================== -->
 
-    <div class="cart-overlay" id="cartOverlay"></div>
+    <div
+        class="cart-overlay"
+        id="cartOverlay"
+    ></div>
 
 
-    <aside class="cart" id="cart">
+    <aside
+        class="cart"
+        id="cart"
+    >
 
         <div class="cart-header">
 
@@ -803,7 +1258,10 @@
         </div>
 
 
-        <div class="cart-items" id="cartItems">
+        <div
+            class="cart-items"
+            id="cartItems"
+        >
 
             <p class="empty-cart">
                 Tu carrito está vacío.
@@ -827,10 +1285,11 @@
             </div>
 
 
-            <button class="checkout-button" id="checkout">
-
+            <button
+                class="checkout-button"
+                id="checkout"
+            >
                 Realizar pedido
-
             </button>
 
         </div>
@@ -846,8 +1305,15 @@
     <footer>
 
         <div class="logo">
-            <span>ANGIE</span>
-            <small>BOUTIQUE</small>
+
+            <span>
+                ANGIE
+            </span>
+
+            <small>
+                BOUTIQUE
+            </small>
+
         </div>
 
 
@@ -874,5 +1340,3 @@
 </body>
 
 </html>
-```
-
