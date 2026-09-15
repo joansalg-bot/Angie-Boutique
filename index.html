@@ -1,1 +1,878 @@
 
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Angie Boutique | Moda que representa tu estilo</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <header class="header">
+
+        <div class="logo">
+            <span>ANGIE</span>
+            <small>BOUTIQUE</small>
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="#inicio">Inicio</a>
+
+            <a href="#coleccion">Colección</a>
+
+            <a href="#nosotros">Nosotros</a>
+
+            <a href="#contacto">Contacto</a>
+
+            <button class="cart-button" id="openCart">
+                🛍️ Carrito
+                <span id="cartCount">0</span>
+            </button>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =================================================
+         HERO
+    ================================================== -->
+
+    <section id="inicio" class="hero">
+
+        <div class="hero-content">
+
+            <span class="hero-label">
+                NUEVA COLECCIÓN
+            </span>
+
+
+            <h1>
+                Tu estilo.
+                <br>
+                Tu esencia.
+            </h1>
+
+
+            <p>
+                Descubre prendas pensadas para expresar
+                quién eres.
+            </p>
+
+
+            <a href="#coleccion" class="hero-button">
+                Explorar colección
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         AVISO DEMO
+    ================================================== -->
+
+    <div class="demo-notice">
+
+        <strong>DEMO</strong>
+
+        Este sitio es un proyecto demostrativo.
+        Los productos, fotografías, precios y datos
+        son ficticios y pueden personalizarse
+        completamente para un negocio real.
+
+    </div>
+
+
+
+    <!-- =================================================
+         DESTACADOS
+    ================================================== -->
+
+    <section class="featured">
+
+        <div class="section-title">
+
+            <span>ANGIE BOUTIQUE</span>
+
+            <h2>Lo que estás buscando</h2>
+
+            <p>
+                Seleccionamos algunas de nuestras prendas
+                favoritas para esta colección.
+            </p>
+
+        </div>
+
+
+        <div class="features-grid">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ✨
+                </div>
+
+                <h3>Estilo</h3>
+
+                <p>
+                    Prendas seleccionadas para crear
+                    looks únicos.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ♡
+                </div>
+
+                <h3>Calidad</h3>
+
+                <p>
+                    Diseños pensados para acompañarte
+                    en cada ocasión.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🛍️
+                </div>
+
+                <h3>Compra fácil</h3>
+
+                <p>
+                    Agrega tus prendas favoritas al
+                    carrito y prepara tu pedido.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         COLECCIÓN
+    ================================================== -->
+
+    <section id="coleccion" class="collection">
+
+        <div class="section-title">
+
+            <span>NUESTRA COLECCIÓN</span>
+
+            <h2>Encuentra tu estilo</h2>
+
+            <p>
+                Explora nuestras prendas y descubre
+                tus favoritas.
+            </p>
+
+        </div>
+
+
+
+        <!-- FILTROS -->
+
+        <div class="filters">
+
+            <button class="filter active" data-category="todos">
+                Todos
+            </button>
+
+            <button class="filter" data-category="blusas">
+                Blusas
+            </button>
+
+            <button class="filter" data-category="vestidos">
+                Vestidos
+            </button>
+
+            <button class="filter" data-category="pantalones">
+                Pantalones
+            </button>
+
+            <button class="filter" data-category="jeans">
+                Jeans
+            </button>
+
+            <button class="filter" data-category="conjuntos">
+                Conjuntos
+            </button>
+
+        </div>
+
+
+
+        <!-- PRODUCTOS -->
+
+        <div class="products-grid" id="productsGrid">
+
+
+
+            <!-- PRODUCTO 1 -->
+
+            <article class="product-card"
+                     data-category="blusas">
+
+                <div class="product-image">
+
+                    <span class="discount">
+                        -20%
+                    </span>
+
+                    <img
+                        src="images/blusa_1.jpg"
+                        alt="Blusa elegante">
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <span class="category">
+                        BLUSAS
+                    </span>
+
+                    <h3>
+                        Blusa Aurora
+                    </h3>
+
+                    <p>
+                        Blusa elegante de diseño
+                        moderno y versátil.
+                    </p>
+
+
+                    <div class="product-price">
+
+                        <span class="old-price">
+                            $69.900
+                        </span>
+
+                        <strong>
+                            $55.900
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="add-cart"
+                        data-name="Blusa Aurora"
+                        data-price="55900">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- PRODUCTO 2 -->
+
+            <article class="product-card"
+                     data-category="vestidos">
+
+                <div class="product-image">
+
+                    <span class="new">
+                        NUEVO
+                    </span>
+
+                    <img
+                        src="images/vestido_1.jpg"
+                        alt="Vestido elegante">
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <span class="category">
+                        VESTIDOS
+                    </span>
+
+                    <h3>
+                        Vestido Luna
+                    </h3>
+
+                    <p>
+                        Vestido femenino ideal para
+                        ocasiones especiales.
+                    </p>
+
+
+                    <div class="product-price">
+
+                        <strong>
+                            $119.900
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="add-cart"
+                        data-name="Vestido Luna"
+                        data-price="119900">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- PRODUCTO 3 -->
+
+            <article class="product-card"
+                     data-category="pantalones">
+
+                <div class="product-image">
+
+                    <img
+                        src="images/pantalon_1.jpg"
+                        alt="Pantalón de moda">
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <span class="category">
+                        PANTALONES
+                    </span>
+
+                    <h3>
+                        Pantalón Roma
+                    </h3>
+
+                    <p>
+                        Diseño cómodo y moderno
+                        para cualquier ocasión.
+                    </p>
+
+
+                    <div class="product-price">
+
+                        <strong>
+                            $99.900
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="add-cart"
+                        data-name="Pantalón Roma"
+                        data-price="99900">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- PRODUCTO 4 -->
+
+            <article class="product-card"
+                     data-category="jeans">
+
+                <div class="product-image">
+
+                    <span class="discount">
+                        -15%
+                    </span>
+
+                    <img
+                        src="images/jean_1.jpg"
+                        alt="Jean moderno">
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <span class="category">
+                        JEANS
+                    </span>
+
+                    <h3>
+                        Jean Milano
+                    </h3>
+
+                    <p>
+                        Jean de corte moderno y
+                        fácil de combinar.
+                    </p>
+
+
+                    <div class="product-price">
+
+                        <span class="old-price">
+                            $129.900
+                        </span>
+
+                        <strong>
+                            $109.900
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="add-cart"
+                        data-name="Jean Milano"
+                        data-price="109900">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- PRODUCTO 5 -->
+
+            <article class="product-card"
+                     data-category="conjuntos">
+
+                <div class="product-image">
+
+                    <span class="new">
+                        NUEVO
+                    </span>
+
+                    <img
+                        src="images/conjunto_1.jpg"
+                        alt="Conjunto femenino">
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <span class="category">
+                        CONJUNTOS
+                    </span>
+
+                    <h3>
+                        Conjunto París
+                    </h3>
+
+                    <p>
+                        Conjunto moderno para crear
+                        un look completo.
+                    </p>
+
+
+                    <div class="product-price">
+
+                        <strong>
+                            $149.900
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="add-cart"
+                        data-name="Conjunto París"
+                        data-price="149900">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- PRODUCTO 6 -->
+
+            <article class="product-card"
+                     data-category="blusas">
+
+                <div class="product-image">
+
+                    <img
+                        src="images/blusa_2.jpg"
+                        alt="Blusa casual">
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <span class="category">
+                        BLUSAS
+                    </span>
+
+                    <h3>
+                        Blusa París
+                    </h3>
+
+                    <p>
+                        Diseño casual para combinar
+                        fácilmente.
+                    </p>
+
+
+                    <div class="product-price">
+
+                        <strong>
+                            $64.900
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="add-cart"
+                        data-name="Blusa París"
+                        data-price="64900">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- PRODUCTO 7 -->
+
+            <article class="product-card"
+                     data-category="vestidos">
+
+                <div class="product-image">
+
+                    <img
+                        src="images/vestido_2.jpg"
+                        alt="Vestido casual">
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <span class="category">
+                        VESTIDOS
+                    </span>
+
+                    <h3>
+                        Vestido Roma
+                    </h3>
+
+                    <p>
+                        Diseño ligero y elegante
+                        para cualquier ocasión.
+                    </p>
+
+
+                    <div class="product-price">
+
+                        <strong>
+                            $109.900
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="add-cart"
+                        data-name="Vestido Roma"
+                        data-price="109900">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- PRODUCTO 8 -->
+
+            <article class="product-card"
+                     data-category="jeans">
+
+                <div class="product-image">
+
+                    <img
+                        src="images/jean_2.jpg"
+                        alt="Jean femenino">
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <span class="category">
+                        JEANS
+                    </span>
+
+                    <h3>
+                        Jean París
+                    </h3>
+
+                    <p>
+                        Jean versátil para looks
+                        casuales y modernos.
+                    </p>
+
+
+                    <div class="product-price">
+
+                        <strong>
+                            $114.900
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="add-cart"
+                        data-name="Jean París"
+                        data-price="114900">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         NOSOTROS
+    ================================================== -->
+
+    <section id="nosotros" class="about">
+
+        <div class="about-content">
+
+            <span class="section-label">
+                SOBRE NOSOTROS
+            </span>
+
+            <h2>
+                Moda para expresar
+                tu esencia.
+            </h2>
+
+            <p>
+                En Angie Boutique creemos que la moda
+                es una forma de expresar quién eres.
+                Nuestra colección combina tendencias,
+                comodidad y personalidad.
+            </p>
+
+            <a href="#coleccion" class="secondary-button">
+                Ver colección
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         CONTACTO
+    ================================================== -->
+
+    <section id="contacto" class="contact">
+
+        <div class="section-title">
+
+            <span>CONTACTO</span>
+
+            <h2>
+                ¿Tienes alguna pregunta?
+            </h2>
+
+            <p>
+                Estamos aquí para ayudarte.
+            </p>
+
+        </div>
+
+
+        <div class="contact-grid">
+
+            <div>
+                <strong>📱 WhatsApp</strong>
+                <p>300 000 0000</p>
+            </div>
+
+
+            <div>
+                <strong>📧 Email</strong>
+                <p>hola@angieboutique.com</p>
+            </div>
+
+
+            <div>
+                <strong>📍 Ubicación</strong>
+                <p>Ciudad de ejemplo</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         CARRITO
+    ================================================== -->
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+
+    <aside class="cart" id="cart">
+
+        <div class="cart-header">
+
+            <h2>
+                Tu carrito
+            </h2>
+
+            <button id="closeCart">
+                ✕
+            </button>
+
+        </div>
+
+
+        <div class="cart-items" id="cartItems">
+
+            <p class="empty-cart">
+                Tu carrito está vacío.
+            </p>
+
+        </div>
+
+
+        <div class="cart-footer">
+
+            <div class="cart-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="cartTotal">
+                    $0
+                </strong>
+
+            </div>
+
+
+            <button class="checkout-button" id="checkout">
+
+                Realizar pedido
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <footer>
+
+        <div class="logo">
+            <span>ANGIE</span>
+            <small>BOUTIQUE</small>
+        </div>
+
+
+        <p>
+            Proyecto DEMO — Diseño de tienda online.
+        </p>
+
+
+        <p>
+            © 2026 Angie Boutique
+        </p>
+
+    </footer>
+
+
+
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
+```
+
