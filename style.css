@@ -441,203 +441,31 @@ body {
 
 
 /* =====================================================
-   BUSCADOR
+   FILTROS
 ===================================================== */
 
-.store-search {
-    width: min(700px, 100%);
-
-    margin: 0 auto 30px;
-}
-
-.search-box {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
-    width: 100%;
-
-    background: white;
-
-    border: 1px solid #ddd2ce;
-
-    border-radius: 30px;
-
-    transition: all 0.3s ease;
-}
-
-.search-box:focus-within {
-    border-color: #a77973;
-
-    box-shadow:
-        0 8px 25px rgba(70, 45, 40, 0.08);
-}
-
-.search-icon {
-    margin-left: 18px;
-
-    font-size: 16px;
-}
-
-.search-box input {
-    width: 100%;
-
-    padding: 15px 45px 15px 12px;
-
-    border: none;
-
-    outline: none;
-
-    background: transparent;
-
-    color: #302727;
-
-    font-size: 14px;
-}
-
-.search-box input::placeholder {
-    color: #9a8d89;
-}
-
-.clear-search {
-    position: absolute;
-
-    right: 14px;
-
-    display: none;
-
-    border: none;
-
-    background: transparent;
-
-    color: #8d7d78;
-
-    cursor: pointer;
-
-    font-size: 14px;
-}
-
-.search-box:focus-within .clear-search {
-    display: block;
-}
-
-
-/* =====================================================
-   CATEGORÍAS PRINCIPALES
-===================================================== */
-
-.main-categories {
+.filters {
     display: flex;
 
     justify-content: center;
 
     flex-wrap: wrap;
 
-    gap: 12px;
+    gap: 10px;
 
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
-.main-category {
-    padding: 12px 24px;
+.filter {
+    padding: 9px 19px;
 
-    background: white;
+    background: transparent;
 
     border: 1px solid #d8ceca;
 
-    border-radius: 30px;
+    border-radius: 25px;
 
-    color: #4f4542;
-
-    cursor: pointer;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    transition: all 0.3s ease;
-}
-
-.main-category:hover {
-    border-color: #a77973;
-
-    color: #a77973;
-
-    transform: translateY(-2px);
-}
-
-.main-category.active {
-    background: #2c2424;
-
-    border-color: #2c2424;
-
-    color: white;
-
-    box-shadow:
-        0 8px 20px rgba(44, 36, 36, 0.15);
-}
-
-
-/* =====================================================
-   CONTENEDOR SUBCATEGORÍAS
-===================================================== */
-
-.subcategory-container {
-    min-height: 52px;
-
-    margin-bottom: 42px;
-}
-
-.subcategories {
-    display: none;
-
-    justify-content: center;
-
-    flex-wrap: wrap;
-
-    gap: 8px;
-
-    padding: 5px 0;
-}
-
-.subcategories.active {
-    display: flex;
-
-    animation: fadeSubcategories 0.3s ease;
-}
-
-@keyframes fadeSubcategories {
-
-    from {
-        opacity: 0;
-
-        transform: translateY(-5px);
-    }
-
-    to {
-        opacity: 1;
-
-        transform: translateY(0);
-    }
-
-}
-
-
-/* =====================================================
-   SUBCATEGORÍAS
-===================================================== */
-
-.subcategory {
-    padding: 8px 17px;
-
-    background: transparent;
-
-    border: none;
-
-    border-bottom: 2px solid transparent;
-
-    color: #766966;
+    color: #655a57;
 
     cursor: pointer;
 
@@ -646,23 +474,18 @@ body {
     transition: all 0.3s ease;
 }
 
-.subcategory:hover {
-    color: #a77973;
+.filter:hover,
+.filter.active {
+    background: #2c2424;
 
-    border-bottom-color: #d9bfbb;
-}
+    border-color: #2c2424;
 
-.subcategory.active {
-    color: #2c2424;
-
-    border-bottom-color: #a77973;
-
-    font-weight: bold;
+    color: white;
 }
 
 
 /* =====================================================
-   RESULTADOS / PRODUCTOS
+   PRODUCTOS
 ===================================================== */
 
 .products-grid {
@@ -672,36 +495,6 @@ body {
         repeat(4, minmax(0, 1fr));
 
     gap: 24px;
-}
-
-
-/* =====================================================
-   PRODUCTOS FUERA DE LA CUADRÍCULA ORIGINAL
-   (HOMBRE / NIÑA / NIÑO)
-   Se mantienen como están en el HTML original, pero
-   reciben la misma distribución de 4 columnas que
-   los productos de Mujer.
-===================================================== */
-
-.collection > article.product-card {
-    float: left;
-
-    width: calc((100% - 72px) / 4);
-
-    margin-right: 24px;
-    margin-bottom: 24px;
-}
-
-.collection > article.product-card:nth-of-type(4n + 1) {
-    clear: left;
-}
-
-.collection::after {
-    content: "";
-
-    display: block;
-
-    clear: both;
 }
 
 
@@ -896,43 +689,6 @@ body {
     background: #a77973;
 
     border-color: #a77973;
-}
-
-
-/* =====================================================
-   SIN RESULTADOS
-===================================================== */
-
-.no-results {
-    width: 100%;
-
-    padding: 60px 20px;
-
-    text-align: center;
-
-    color: #776c69;
-}
-
-.no-results > div {
-    margin-bottom: 12px;
-
-    font-size: 35px;
-}
-
-.no-results h3 {
-    margin-bottom: 5px;
-
-    color: #302727;
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: 24px;
-
-    font-weight: normal;
-}
-
-.no-results p {
-    font-size: 13px;
 }
 
 
@@ -1328,18 +1084,6 @@ footer p {
             repeat(3, minmax(0, 1fr));
     }
 
-    .collection > article.product-card {
-        width: calc((100% - 48px) / 3);
-    }
-
-    .collection > article.product-card:nth-of-type(4n + 1) {
-        clear: none;
-    }
-
-    .collection > article.product-card:nth-of-type(3n + 1) {
-        clear: left;
-    }
-
 }
 
 
@@ -1366,24 +1110,8 @@ footer p {
             repeat(2, minmax(0, 1fr));
     }
 
-    .collection > article.product-card {
-        width: calc((100% - 24px) / 2);
-    }
-
-    .collection > article.product-card:nth-of-type(3n + 1) {
-        clear: none;
-    }
-
-    .collection > article.product-card:nth-of-type(2n + 1) {
-        clear: left;
-    }
-
     .features-grid {
         grid-template-columns: 1fr;
-    }
-
-    .main-category {
-        padding: 11px 19px;
     }
 
 }
@@ -1467,47 +1195,18 @@ footer p {
     }
 
 
-    /* BUSCADOR */
+    /* FILTROS */
 
-    .store-search {
-        margin-bottom: 25px;
-    }
-
-    .search-box input {
-        padding: 14px 42px 14px 10px;
-
-        font-size: 13px;
-    }
-
-
-    /* CATEGORÍAS */
-
-    .main-categories {
-        gap: 8px;
-
-        margin-bottom: 15px;
-    }
-
-    .main-category {
-        padding: 9px 14px;
-
-        font-size: 11px;
-    }
-
-    .subcategory-container {
-        min-height: 48px;
+    .filters {
+        gap: 7px;
 
         margin-bottom: 30px;
     }
 
-    .subcategories {
-        gap: 3px 8px;
-    }
+    .filter {
+        padding: 8px 13px;
 
-    .subcategory {
-        padding: 7px 10px;
-
-        font-size: 10px;
+        font-size: 11px;
     }
 
 
@@ -1517,21 +1216,6 @@ footer p {
         grid-template-columns: 1fr;
 
         gap: 20px;
-    }
-
-    .collection > article.product-card {
-        float: none;
-
-        width: 100%;
-
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-
-    .collection > article.product-card:nth-of-type(2n + 1),
-    .collection > article.product-card:nth-of-type(3n + 1),
-    .collection > article.product-card:nth-of-type(4n + 1) {
-        clear: none;
     }
 
     .product-image {
