@@ -1,1912 +1,1586 @@
-<!DOCTYPE html>
+/* =====================================================
+   ANGIE BOUTIQUE
+   DEMO — PLAN PROFESIONAL
+===================================================== */
 
-<html lang="es">
 
-<head>
+/* =====================================================
+   RESET
+===================================================== */
 
-<meta charset="UTF-8">
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+html {
+    scroll-behavior: smooth;
+}
 
-<title>Angie Boutique | Moda que representa tu estilo</title>
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: #faf8f6;
+    color: #25201f;
+    line-height: 1.6;
+}
 
-<link rel="stylesheet" href="style.css">
 
-</head>
+/* =====================================================
+   HEADER
+===================================================== */
 
-<body>
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
-<!-- =================================================
-     HEADER
-================================================== -->
+    width: 100%;
 
-<header class="header">
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    <div class="logo">
-        <span>ANGIE</span>
-        <small>BOUTIQUE</small>
-    </div>
+    padding: 17px 6%;
 
+    background: rgba(255, 255, 255, 0.96);
 
-    <nav class="nav">
+    border-bottom: 1px solid #ece6e2;
 
-        <a href="#inicio">Inicio</a>
+    backdrop-filter: blur(10px);
+}
 
-        <a href="#coleccion">Colección</a>
 
-        <a href="#nosotros">Nosotros</a>
+/* =====================================================
+   LOGO
+===================================================== */
 
-        <a href="#contacto">Contacto</a>
+.logo {
+    display: flex;
+    flex-direction: column;
 
-        <button class="cart-button" id="openCart">
-            🛍️ Carrito
-            <span id="cartCount">0</span>
-        </button>
+    line-height: 1;
+}
 
-    </nav>
+.logo span {
+    color: #2c2424;
 
-</header>
+    font-family: Georgia, "Times New Roman", serif;
 
+    font-size: 23px;
 
+    font-weight: bold;
 
-<!-- =================================================
-     HERO
-================================================== -->
+    letter-spacing: 4px;
+}
 
-<section id="inicio" class="hero">
+.logo small {
+    margin-top: 5px;
 
-    <div class="hero-content">
+    color: #9b7772;
 
-        <span class="hero-label">
-            NUEVA COLECCIÓN
-        </span>
+    font-size: 9px;
 
+    letter-spacing: 5px;
 
-        <h1>
-            Tu estilo.
-            <br>
-            Tu esencia.
-        </h1>
+    text-align: center;
+}
 
 
-        <p>
-            Descubre prendas pensadas para expresar
-            quién eres.
-        </p>
+/* =====================================================
+   NAVEGACIÓN
+===================================================== */
 
+.nav {
+    display: flex;
+    align-items: center;
 
-        <a href="#coleccion" class="hero-button">
-            Explorar colección
-        </a>
+    gap: 27px;
+}
 
-    </div>
+.nav a {
+    color: #403938;
 
-</section>
+    text-decoration: none;
 
+    font-size: 13px;
 
+    transition: color 0.3s ease;
+}
 
-<!-- =================================================
-     AVISO DEMO
-================================================== -->
+.nav a:hover {
+    color: #a77973;
+}
 
-<div class="demo-notice">
 
-    <strong>DEMO</strong>
+/* =====================================================
+   CARRITO HEADER
+===================================================== */
 
-    Este sitio es un proyecto demostrativo.
-    Los productos, fotografías, precios y datos
-    son ficticios y pueden personalizarse
-    completamente para un negocio real.
+.cart-button {
+    display: flex;
+    align-items: center;
+    gap: 7px;
 
-</div>
+    padding: 9px 15px;
 
+    border: 1px solid #d8c5c1;
 
+    background: #fff;
 
-<!-- =================================================
-     DESTACADOS
-================================================== -->
+    color: #403938;
 
-<section class="featured">
+    border-radius: 25px;
 
-    <div class="section-title">
+    cursor: pointer;
 
-        <span>ANGIE BOUTIQUE</span>
+    font-size: 12px;
 
-        <h2>Lo que estás buscando</h2>
+    transition: all 0.3s ease;
+}
 
-        <p>
-            Seleccionamos algunas de nuestras prendas
-            favoritas para esta colección.
-        </p>
+.cart-button:hover {
+    background: #2c2424;
 
-    </div>
+    color: white;
 
+    border-color: #2c2424;
+}
 
-    <div class="features-grid">
+#cartCount {
+    min-width: 20px;
+    height: 20px;
 
+    display: inline-flex;
 
-        <div class="feature-card">
+    align-items: center;
+    justify-content: center;
 
-            <div class="feature-icon">
-                ✨
-            </div>
+    border-radius: 50%;
 
-            <h3>Estilo</h3>
+    background: #a77973;
 
-            <p>
-                Prendas seleccionadas para crear
-                looks únicos.
-            </p>
+    color: white;
 
-        </div>
+    font-size: 11px;
 
+    font-weight: bold;
+}
 
-        <div class="feature-card">
 
-            <div class="feature-icon">
-                ♡
-            </div>
+/* =====================================================
+   HERO
+===================================================== */
 
-            <h3>Calidad</h3>
+.hero {
+    min-height: 650px;
 
-            <p>
-                Diseños pensados para acompañarte
-                en cada ocasión.
-            </p>
+    display: flex;
+    align-items: center;
 
-        </div>
+    position: relative;
 
+    background:
+        linear-gradient(
+            90deg,
+            rgba(35, 27, 27, 0.72),
+            rgba(35, 27, 27, 0.25)
+        ),
+        url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1800&q=85");
 
-        <div class="feature-card">
+    background-size: cover;
 
-            <div class="feature-icon">
-                🛍️
-            </div>
+    background-position: center;
+}
 
-            <h3>Compra fácil</h3>
+.hero-content {
+    width: min(1200px, 88%);
 
-            <p>
-                Agrega tus prendas favoritas al
-                carrito y prepara tu pedido.
-            </p>
+    margin: 0 auto;
 
-        </div>
+    color: white;
+}
 
+.hero-label {
+    display: inline-block;
 
-    </div>
+    margin-bottom: 18px;
 
-</section>
+    padding: 6px 13px;
 
+    border: 1px solid rgba(255,255,255,0.55);
 
+    border-radius: 20px;
 
-<!-- =================================================
-     COLECCIÓN
-================================================== -->
+    font-size: 10px;
 
-<section id="coleccion" class="collection">
+    letter-spacing: 3px;
+}
 
-    <div class="section-title">
+.hero h1 {
+    max-width: 700px;
 
-        <span>NUESTRA COLECCIÓN</span>
+    margin-bottom: 20px;
 
-        <h2>Encuentra tu estilo</h2>
+    font-family: Georgia, "Times New Roman", serif;
 
-        <p>
-            Explora nuestras prendas y descubre
-            tus favoritas.
-        </p>
+    font-size: clamp(52px, 7vw, 88px);
 
-    </div>
+    font-weight: normal;
 
+    line-height: 1.05;
+}
 
+.hero p {
+    max-width: 510px;
 
-    <!-- =================================================
-         BUSCADOR
-    ================================================== -->
+    margin-bottom: 32px;
 
-    <div class="store-search">
+    color: #f5eeee;
 
-        <div class="search-box">
+    font-size: 18px;
+}
 
-            <span class="search-icon">
-                🔎
-            </span>
+.hero-button {
+    display: inline-block;
 
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="¿Qué estás buscando?"
-                autocomplete="off"
-            >
+    padding: 14px 28px;
 
-            <button
-                type="button"
-                id="clearSearch"
-                class="clear-search"
-                aria-label="Limpiar búsqueda"
-            >
-                ✕
-            </button>
+    background: white;
 
-        </div>
+    color: #2c2424;
 
-    </div>
+    text-decoration: none;
 
+    font-size: 13px;
 
+    font-weight: bold;
 
-    <!-- =================================================
-         CATEGORÍAS PRINCIPALES
-    ================================================== -->
+    border-radius: 3px;
 
-    <div class="main-categories">
+    transition: all 0.3s ease;
+}
 
-        <button
-            class="main-category active"
-            data-gender="todos"
-            type="button"
-        >
-            🛍️ Todos
-        </button>
+.hero-button:hover {
+    background: #a77973;
 
+    color: white;
 
-        <button
-            class="main-category"
-            data-gender="mujer"
-            type="button"
-        >
-            👩 Mujer
-        </button>
+    transform: translateY(-2px);
+}
 
 
-        <button
-            class="main-category"
-            data-gender="hombre"
-            type="button"
-        >
-            👨 Hombre
-        </button>
+/* =====================================================
+   DEMO
+===================================================== */
 
+.demo-notice {
+    width: min(1100px, 90%);
 
-        <button
-            class="main-category"
-            data-gender="nina"
-            type="button"
-        >
-            👧 Niña
-        </button>
+    margin: 28px auto 0;
 
+    padding: 15px 22px;
 
-        <button
-            class="main-category"
-            data-gender="nino"
-            type="button"
-        >
-            👦 Niño
-        </button>
+    text-align: center;
 
-    </div>
+    background: #f6efed;
 
+    border: 1px solid #e5d6d2;
 
+    border-radius: 6px;
 
-    <!-- =================================================
-         SUBCATEGORÍAS
-    ================================================== -->
+    color: #695653;
 
-    <div class="subcategory-container">
+    font-size: 12px;
 
-        <!-- SUBCATEGORÍAS MUJER -->
+    line-height: 1.6;
+}
 
-        <div
-            class="subcategories active"
-            id="subcategories-mujer"
-            data-subcategory-group="mujer"
-        >
+.demo-notice strong {
+    display: inline-block;
 
-            <button
-                class="subcategory active"
-                data-category="todos"
-                data-gender="mujer"
-                type="button"
-            >
-                Todas
-            </button>
+    margin-right: 8px;
 
-            <button
-                class="subcategory"
-                data-category="blusas"
-                data-gender="mujer"
-                type="button"
-            >
-                Blusas
-            </button>
+    padding: 4px 8px;
 
-            <button
-                class="subcategory"
-                data-category="vestidos"
-                data-gender="mujer"
-                type="button"
-            >
-                Vestidos
-            </button>
+    background: #2c2424;
 
-            <button
-                class="subcategory"
-                data-category="pantalones"
-                data-gender="mujer"
-                type="button"
-            >
-                Pantalones
-            </button>
+    color: white;
 
-            <button
-                class="subcategory"
-                data-category="jeans"
-                data-gender="mujer"
-                type="button"
-            >
-                Jeans
-            </button>
+    border-radius: 3px;
 
-            <button
-                class="subcategory"
-                data-category="conjuntos"
-                data-gender="mujer"
-                type="button"
-            >
-                Conjuntos
-            </button>
+    font-size: 9px;
 
-            <button
-                class="subcategory"
-                data-category="chaquetas"
-                data-gender="mujer"
-                type="button"
-            >
-                Chaquetas
-            </button>
+    letter-spacing: 2px;
+}
 
-        </div>
 
+/* =====================================================
+   TÍTULOS
+===================================================== */
 
+.section-title {
+    max-width: 700px;
 
-        <!-- SUBCATEGORÍAS HOMBRE -->
+    margin: 0 auto 45px;
 
-        <div
-            class="subcategories"
-            id="subcategories-hombre"
-            data-subcategory-group="hombre"
-        >
+    text-align: center;
+}
 
-            <button
-                class="subcategory active"
-                data-category="todos"
-                data-gender="hombre"
-                type="button"
-            >
-                Todas
-            </button>
+.section-title > span {
+    display: block;
 
-            <button
-                class="subcategory"
-                data-category="camisas"
-                data-gender="hombre"
-                type="button"
-            >
-                Camisas
-            </button>
+    margin-bottom: 10px;
 
-            <button
-                class="subcategory"
-                data-category="camisetas"
-                data-gender="hombre"
-                type="button"
-            >
-                Camisetas
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="pantalones"
-                data-gender="hombre"
-                type="button"
-            >
-                Pantalones
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="jeans"
-                data-gender="hombre"
-                type="button"
-            >
-                Jeans
-            </button>
+    color: #a77973;
 
-            <button
-                class="subcategory"
-                data-category="chaquetas"
-                data-gender="hombre"
-                type="button"
-            >
-                Chaquetas
-            </button>
+    font-size: 10px;
 
-            <button
-                class="subcategory"
-                data-category="conjuntos"
-                data-gender="hombre"
-                type="button"
-            >
-                Conjuntos
-            </button>
-
-        </div>
-
-
-
-        <!-- SUBCATEGORÍAS NIÑA -->
-
-        <div
-            class="subcategories"
-            id="subcategories-nina"
-            data-subcategory-group="nina"
-        >
-
-            <button
-                class="subcategory active"
-                data-category="todos"
-                data-gender="nina"
-                type="button"
-            >
-                Todas
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="blusas"
-                data-gender="nina"
-                type="button"
-            >
-                Blusas
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="vestidos"
-                data-gender="nina"
-                type="button"
-            >
-                Vestidos
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="pantalones"
-                data-gender="nina"
-                type="button"
-            >
-                Pantalones
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="jeans"
-                data-gender="nina"
-                type="button"
-            >
-                Jeans
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="conjuntos"
-                data-gender="nina"
-                type="button"
-            >
-                Conjuntos
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="chaquetas"
-                data-gender="nina"
-                type="button"
-            >
-                Chaquetas
-            </button>
-
-        </div>
-
-
-
-        <!-- SUBCATEGORÍAS NIÑO -->
-
-        <div
-            class="subcategories"
-            id="subcategories-nino"
-            data-subcategory-group="nino"
-        >
-
-            <button
-                class="subcategory active"
-                data-category="todos"
-                data-gender="nino"
-                type="button"
-            >
-                Todas
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="camisetas"
-                data-gender="nino"
-                type="button"
-            >
-                Camisetas
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="camisas"
-                data-gender="nino"
-                type="button"
-            >
-                Camisas
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="pantalones"
-                data-gender="nino"
-                type="button"
-            >
-                Pantalones
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="jeans"
-                data-gender="nino"
-                type="button"
-            >
-                Jeans
-            </button>
-
-            <button
-                class="subcategory"
-                data-category="conjuntos"
-                data-gender="nino"
-                type="button"
-            >
-                Conjuntos
-            </button>
+    font-weight: bold;
 
-            <button
-                class="subcategory"
-                data-category="chaquetas"
-                data-gender="nino"
-                type="button"
-            >
-                Chaquetas
-            </button>
+    letter-spacing: 3px;
+}
 
-        </div>
-
-    </div>
+.section-title h2 {
+    margin-bottom: 12px;
 
+    color: #2c2424;
 
-
-    <!-- =================================================
-         PRODUCTOS
-    ================================================== -->
+    font-family: Georgia, "Times New Roman", serif;
 
-    <div
-        class="products-grid"
-        id="productsGrid"
-    >
+    font-size: clamp(32px, 5vw, 48px);
 
+    font-weight: normal;
 
+    line-height: 1.15;
+}
 
-        <!-- =================================================
-             PRODUCTO 1
-        ================================================== -->
+.section-title p {
+    color: #776c69;
 
-        <article
-            class="product-card"
-            data-gender="mujer"
-            data-category="blusas"
-            data-name="Blusa Aurora"
-        >
+    font-size: 15px;
+}
 
-            <div class="product-image">
 
-                <span class="discount">
-                    -20%
-                </span>
+/* =====================================================
+   DESTACADOS
+===================================================== */
 
-                <img
-                    src="images/blusa_1.jpg"
-                    alt="Blusa elegante"
-                >
+.featured {
+    width: min(1150px, 90%);
 
-            </div>
+    margin: 0 auto;
 
+    padding: 90px 0 70px;
+}
 
-            <div class="product-info">
+.features-grid {
+    display: grid;
 
-                <span class="category">
-                    MUJER · BLUSAS
-                </span>
+    grid-template-columns:
+        repeat(3, 1fr);
 
-                <h3>
-                    Blusa Aurora
-                </h3>
+    gap: 25px;
+}
 
-                <p>
-                    Blusa elegante de diseño
-                    moderno y versátil.
-                </p>
+.feature-card {
+    padding: 35px 25px;
 
+    background: white;
 
-                <div class="product-price">
+    border: 1px solid #eee6e2;
 
-                    <span class="old-price">
-                        $69.900
-                    </span>
+    text-align: center;
 
-                    <strong>
-                        $55.900
-                    </strong>
+    transition: all 0.3s ease;
+}
 
-                </div>
+.feature-card:hover {
+    transform: translateY(-5px);
 
+    box-shadow:
+        0 15px 35px rgba(50, 35, 30, 0.08);
+}
 
-                <button
-                    class="add-cart"
-                    data-name="Blusa Aurora"
-                    data-price="55900"
-                >
-                    Agregar al carrito
-                </button>
+.feature-icon {
+    margin-bottom: 15px;
 
-            </div>
+    color: #a77973;
 
-        </article>
+    font-size: 28px;
+}
 
+.feature-card h3 {
+    margin-bottom: 8px;
 
+    font-family: Georgia, "Times New Roman", serif;
 
-        <!-- =================================================
-             PRODUCTO 2
-        ================================================== -->
+    font-size: 22px;
 
-        <article
-            class="product-card"
-            data-gender="mujer"
-            data-category="vestidos"
-            data-name="Vestido Luna"
-        >
+    font-weight: normal;
+}
 
-            <div class="product-image">
+.feature-card p {
+    color: #776c69;
 
-                <span class="new">
-                    NUEVO
-                </span>
+    font-size: 13px;
+}
 
-                <img
-                    src="images/vestido_1.jpg"
-                    alt="Vestido elegante"
-                >
 
-            </div>
+/* =====================================================
+   COLECCIÓN
+===================================================== */
 
+.collection {
+    width: min(1300px, 94%);
 
-            <div class="product-info">
+    margin: 0 auto;
 
-                <span class="category">
-                    MUJER · VESTIDOS
-                </span>
+    padding: 70px 0 100px;
+}
 
-                <h3>
-                    Vestido Luna
-                </h3>
 
-                <p>
-                    Vestido femenino ideal para
-                    ocasiones especiales.
-                </p>
+/* =====================================================
+   BUSCADOR
+===================================================== */
 
+.store-search {
+    width: min(700px, 100%);
 
-                <div class="product-price">
+    margin: 0 auto 30px;
+}
 
-                    <strong>
-                        $119.900
-                    </strong>
+.search-box {
+    position: relative;
 
-                </div>
+    display: flex;
+    align-items: center;
 
+    width: 100%;
 
-                <button
-                    class="add-cart"
-                    data-name="Vestido Luna"
-                    data-price="119900"
-                >
-                    Agregar al carrito
-                </button>
+    background: white;
 
-            </div>
+    border: 1px solid #ddd2ce;
 
-        </article>
+    border-radius: 30px;
 
+    transition: all 0.3s ease;
+}
 
+.search-box:focus-within {
+    border-color: #a77973;
 
-        <!-- =================================================
-             PRODUCTO 3
-        ================================================== -->
+    box-shadow:
+        0 8px 25px rgba(70, 45, 40, 0.08);
+}
 
-        <article
-            class="product-card"
-            data-gender="mujer"
-            data-category="pantalones"
-            data-name="Pantalón Roma"
-        >
+.search-icon {
+    margin-left: 18px;
 
-            <div class="product-image">
+    font-size: 16px;
+}
 
-                <img
-                    src="images/pantalon_1.jpg"
-                    alt="Pantalón de moda"
-                >
+.search-box input {
+    width: 100%;
 
-            </div>
+    padding: 15px 45px 15px 12px;
 
+    border: none;
 
-            <div class="product-info">
+    outline: none;
 
-                <span class="category">
-                    MUJER · PANTALONES
-                </span>
+    background: transparent;
 
-                <h3>
-                    Pantalón Roma
-                </h3>
+    color: #302727;
 
-                <p>
-                    Diseño cómodo y moderno
-                    para cualquier ocasión.
-                </p>
+    font-size: 14px;
+}
 
+.search-box input::placeholder {
+    color: #9a8d89;
+}
 
-                <div class="product-price">
+.clear-search {
+    position: absolute;
 
-                    <strong>
-                        $99.900
-                    </strong>
+    right: 14px;
 
-                </div>
+    display: none;
 
+    border: none;
 
-                <button
-                    class="add-cart"
-                    data-name="Pantalón Roma"
-                    data-price="99900"
-                >
-                    Agregar al carrito
-                </button>
+    background: transparent;
 
-            </div>
+    color: #8d7d78;
 
-        </article>
+    cursor: pointer;
 
+    font-size: 14px;
+}
 
+.search-box:focus-within .clear-search {
+    display: block;
+}
 
-        <!-- =================================================
-             PRODUCTO 4
-        ================================================== -->
 
-        <article
-            class="product-card"
-            data-gender="mujer"
-            data-category="jeans"
-            data-name="Jean Milano"
-        >
+/* =====================================================
+   CATEGORÍAS PRINCIPALES
+===================================================== */
 
-            <div class="product-image">
+.main-categories {
+    display: flex;
 
-                <span class="discount">
-                    -15%
-                </span>
+    justify-content: center;
 
-                <img
-                    src="images/jean_1.jpg"
-                    alt="Jean moderno"
-                >
+    flex-wrap: wrap;
 
-            </div>
+    gap: 12px;
 
+    margin-bottom: 20px;
+}
 
-            <div class="product-info">
+.main-category {
+    padding: 12px 24px;
 
-                <span class="category">
-                    MUJER · JEANS
-                </span>
+    background: white;
 
-                <h3>
-                    Jean Milano
-                </h3>
+    border: 1px solid #d8ceca;
 
-                <p>
-                    Jean de corte moderno y
-                    fácil de combinar.
-                </p>
+    border-radius: 30px;
 
+    color: #4f4542;
 
-                <div class="product-price">
+    cursor: pointer;
 
-                    <span class="old-price">
-                        $129.900
-                    </span>
+    font-size: 13px;
 
-                    <strong>
-                        $109.900
-                    </strong>
+    font-weight: 600;
 
-                </div>
+    transition: all 0.3s ease;
+}
 
+.main-category:hover {
+    border-color: #a77973;
 
-                <button
-                    class="add-cart"
-                    data-name="Jean Milano"
-                    data-price="109900"
-                >
-                    Agregar al carrito
-                </button>
+    color: #a77973;
 
-            </div>
+    transform: translateY(-2px);
+}
 
-        </article>
+.main-category.active {
+    background: #2c2424;
 
+    border-color: #2c2424;
 
+    color: white;
 
-        <!-- =================================================
-             PRODUCTO 5
-        ================================================== -->
+    box-shadow:
+        0 8px 20px rgba(44, 36, 36, 0.15);
+}
 
-        <article
-            class="product-card"
-            data-gender="mujer"
-            data-category="conjuntos"
-            data-name="Conjunto París"
-        >
 
-            <div class="product-image">
+/* =====================================================
+   CONTENEDOR SUBCATEGORÍAS
+===================================================== */
 
-                <span class="new">
-                    NUEVO
-                </span>
+.subcategory-container {
+    min-height: 52px;
 
-                <img
-                    src="images/conjunto_1.jpg"
-                    alt="Conjunto femenino"
-                >
+    margin-bottom: 42px;
+}
 
-            </div>
+.subcategories {
+    display: none;
 
+    justify-content: center;
 
-            <div class="product-info">
+    flex-wrap: wrap;
 
-                <span class="category">
-                    MUJER · CONJUNTOS
-                </span>
+    gap: 8px;
 
-                <h3>
-                    Conjunto París
-                </h3>
+    padding: 5px 0;
+}
 
-                <p>
-                    Conjunto moderno para crear
-                    un look completo.
-                </p>
+.subcategories.active {
+    display: flex;
 
+    animation: fadeSubcategories 0.3s ease;
+}
 
-                <div class="product-price">
+@keyframes fadeSubcategories {
 
-                    <strong>
-                        $149.900
-                    </strong>
+    from {
+        opacity: 0;
 
-                </div>
+        transform: translateY(-5px);
+    }
 
+    to {
+        opacity: 1;
 
-                <button
-                    class="add-cart"
-                    data-name="Conjunto París"
-                    data-price="149900"
-                >
-                    Agregar al carrito
-                </button>
+        transform: translateY(0);
+    }
 
-            </div>
+}
 
-        </article>
 
+/* =====================================================
+   SUBCATEGORÍAS
+===================================================== */
 
+.subcategory {
+    padding: 8px 17px;
 
-        <!-- =================================================
-             PRODUCTO 6
-        ================================================== -->
+    background: transparent;
 
-        <article
-            class="product-card"
-            data-gender="mujer"
-            data-category="blusas"
-            data-name="Blusa París"
-        >
+    border: none;
 
-            <div class="product-image">
+    border-bottom: 2px solid transparent;
 
-                <img
-                    src="images/blusa_2.jpg"
-                    alt="Blusa casual"
-                >
+    color: #766966;
 
-            </div>
+    cursor: pointer;
 
+    font-size: 12px;
 
-            <div class="product-info">
+    transition: all 0.3s ease;
+}
 
-                <span class="category">
-                    MUJER · BLUSAS
-                </span>
+.subcategory:hover {
+    color: #a77973;
 
-                <h3>
-                    Blusa París
-                </h3>
+    border-bottom-color: #d9bfbb;
+}
 
-                <p>
-                    Diseño casual para combinar
-                    fácilmente.
-                </p>
+.subcategory.active {
+    color: #2c2424;
 
+    border-bottom-color: #a77973;
 
-                <div class="product-price">
+    font-weight: bold;
+}
 
-                    <strong>
-                        $64.900
-                    </strong>
 
-                </div>
+/* =====================================================
+   RESULTADOS / PRODUCTOS
+===================================================== */
 
+.products-grid {
+    display: grid;
 
-                <button
-                    class="add-cart"
-                    data-name="Blusa París"
-                    data-price="64900"
-                >
-                    Agregar al carrito
-                </button>
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
 
-            </div>
+    gap: 24px;
+}
 
-        </article>
 
+/* =====================================================
+   PRODUCTOS FUERA DE LA CUADRÍCULA ORIGINAL
+   (HOMBRE / NIÑA / NIÑO)
+   Se mantienen como están en el HTML original, pero
+   reciben la misma distribución de 4 columnas que
+   los productos de Mujer.
+===================================================== */
 
+.collection > article.product-card {
+    float: left;
 
-        <!-- =================================================
-             PRODUCTO 7
-        ================================================== -->
+    width: calc((100% - 72px) / 4);
 
-        <article
-            class="product-card"
-            data-gender="mujer"
-            data-category="vestidos"
-            data-name="Vestido Roma"
-        >
+    margin-right: 24px;
+    margin-bottom: 24px;
+}
 
-            <div class="product-image">
+.collection > article.product-card:nth-of-type(4n + 1) {
+    clear: left;
+}
 
-                <img
-                    src="images/vestido_2.jpg"
-                    alt="Vestido casual"
-                >
+.collection::after {
+    content: "";
 
-            </div>
+    display: block;
 
+    clear: both;
+}
 
-            <div class="product-info">
 
-                <span class="category">
-                    MUJER · VESTIDOS
-                </span>
+/* =====================================================
+   TARJETA PRODUCTO
+===================================================== */
 
-                <h3>
-                    Vestido Roma
-                </h3>
+.product-card {
+    overflow: hidden;
 
-                <p>
-                    Diseño ligero y elegante
-                    para cualquier ocasión.
-                </p>
+    background: white;
 
+    border: 1px solid #eee7e3;
 
-                <div class="product-price">
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
 
-                    <strong>
-                        $109.900
-                    </strong>
+.product-card:hover {
+    transform: translateY(-6px);
 
-                </div>
+    box-shadow:
+        0 18px 40px rgba(45, 30, 25, 0.12);
+}
 
 
-                <button
-                    class="add-cart"
-                    data-name="Vestido Roma"
-                    data-price="109900"
-                >
-                    Agregar al carrito
-                </button>
+/* =====================================================
+   IMAGEN PRODUCTO
+===================================================== */
 
-            </div>
+.product-image {
+    position: relative;
 
-        </article>
+    overflow: hidden;
 
+    width: 100%;
 
+    aspect-ratio: 4 / 5;
 
-        <!-- =================================================
-             PRODUCTO 8
-        ================================================== -->
+    background: #eee8e4;
+}
 
-        <article
-            class="product-card"
-            data-gender="mujer"
-            data-category="jeans"
-            data-name="Jean París"
-        >
+.product-image img {
+    width: 100%;
+    height: 100%;
 
-            <div class="product-image">
+    display: block;
 
-                <img
-                    src="images/jean_2.jpg"
-                    alt="Jean femenino"
-                >
+    object-fit: cover;
 
-            </div>
+    transition: transform 0.5s ease;
+}
 
+.product-card:hover .product-image img {
+    transform: scale(1.045);
+}
 
-            <div class="product-info">
 
-                <span class="category">
-                    MUJER · JEANS
-                </span>
+/* =====================================================
+   ETIQUETAS
+===================================================== */
 
-                <h3>
-                    Jean París
-                </h3>
+.discount,
+.new {
+    position: absolute;
 
-                <p>
-                    Jean versátil para looks
-                    casuales y modernos.
-                </p>
+    top: 12px;
+    left: 12px;
 
+    z-index: 2;
 
-                <div class="product-price">
+    padding: 5px 9px;
 
-                    <strong>
-                        $114.900
-                    </strong>
+    background: #2c2424;
 
-                </div>
+    color: white;
 
+    font-size: 9px;
 
-                <button
-                    class="add-cart"
-                    data-name="Jean París"
-                    data-price="114900"
-                >
-                    Agregar al carrito
-                </button>
+    letter-spacing: 1px;
 
-            </div>
+    border-radius: 2px;
+}
 
-        </article>
+.discount {
+    background: #a77973;
+}
 
 
+/* =====================================================
+   INFORMACIÓN PRODUCTO
+===================================================== */
 
+.product-info {
+    padding: 18px 17px 20px;
+}
 
+.category {
+    display: block;
 
+    margin-bottom: 6px;
 
-        <!-- =================================================
-             PRODUCTOS HOMBRE
-        ================================================== -->
+    color: #a77973;
 
-        <article class="product-card"
-            data-gender="hombre"
-            data-category="camisas"
-            data-name="Camisa Oxford">
+    font-size: 9px;
 
-            <div class="product-image">
-                <span class="discount">-18%</span>
-                <img src="images/camisa_1.jpg" alt="Camisa Oxford">
-            </div>
+    font-weight: bold;
 
-            <div class="product-info">
-                <span class="category">HOMBRE · CAMISAS</span>
-                <h3>Camisa Oxford</h3>
-                <p>Camisa clásica y versátil para un look elegante.</p>
-                <div class="product-price">
-                    <span class="old-price">$109.900</span>
-                    <strong>$89.900</strong>
-                </div>
-                <button class="add-cart" data-name="Camisa Oxford" data-price="89900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
+    letter-spacing: 2px;
+}
 
-        <article class="product-card"
-            data-gender="hombre"
-            data-category="camisas"
-            data-name="Camisa Milano">
+.product-info h3 {
+    margin-bottom: 7px;
 
-            <div class="product-image">
-                <img src="images/camisa_2.jpg" alt="Camisa Milano">
-            </div>
+    color: #302727;
 
-            <div class="product-info">
-                <span class="category">HOMBRE · CAMISAS</span>
-                <h3>Camisa Milano</h3>
-                <p>Diseño moderno para combinar con diferentes estilos.</p>
-                <div class="product-price">
-                    <strong>$94.900</strong>
-                </div>
-                <button class="add-cart" data-name="Camisa Milano" data-price="94900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
+    font-family: Georgia, "Times New Roman", serif;
 
-        <article class="product-card"
-            data-gender="hombre"
-            data-category="camisetas"
-            data-name="Camiseta Urban">
+    font-size: 20px;
 
-            <div class="product-image">
-                <img src="images/camiseta_1.jpg" alt="Camiseta Urban">
-            </div>
+    font-weight: normal;
+}
 
-            <div class="product-info">
-                <span class="category">HOMBRE · CAMISETAS</span>
-                <h3>Camiseta Urban</h3>
-                <p>Comodidad y estilo para tus looks del día a día.</p>
-                <div class="product-price">
-                    <strong>$59.900</strong>
-                </div>
-                <button class="add-cart" data-name="Camiseta Urban" data-price="59900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
+.product-info p {
+    min-height: 42px;
 
-        <article class="product-card"
-            data-gender="hombre"
-            data-category="camisetas"
-            data-name="Camiseta Essential">
+    margin-bottom: 12px;
 
-            <div class="product-image">
-                <span class="new">NUEVO</span>
-                <img src="images/camiseta_2.jpg" alt="Camiseta Essential">
-            </div>
+    color: #776c69;
 
-            <div class="product-info">
-                <span class="category">HOMBRE · CAMISETAS</span>
-                <h3>Camiseta Essential</h3>
-                <p>Prenda básica y moderna para cualquier ocasión.</p>
-                <div class="product-price">
-                    <strong>$54.900</strong>
-                </div>
-                <button class="add-cart" data-name="Camiseta Essential" data-price="54900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
+    font-size: 12px;
 
-        <article class="product-card"
-            data-gender="hombre"
-            data-category="pantalones"
-            data-name="Pantalón Roma">
+    line-height: 1.5;
+}
 
-            <div class="product-image">
-                <img src="images/pantalon_hombre_1.jpg" alt="Pantalón Roma">
-            </div>
 
-            <div class="product-info">
-                <span class="category">HOMBRE · PANTALONES</span>
-                <h3>Pantalón Roma</h3>
-                <p>Diseño cómodo y actual para looks casuales.</p>
-                <div class="product-price">
-                    <strong>$99.900</strong>
-                </div>
-                <button class="add-cart" data-name="Pantalón Roma" data-price="99900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
+/* =====================================================
+   PRECIOS
+===================================================== */
 
-        <article class="product-card"
-            data-gender="hombre"
-            data-category="jeans"
-            data-name="Jean Denver">
+.product-price {
+    display: flex;
 
-            <div class="product-image">
-                <span class="discount">-14%</span>
-                <img src="images/jean_hombre_1.jpg" alt="Jean Denver">
-            </div>
+    align-items: center;
 
-            <div class="product-info">
-                <span class="category">HOMBRE · JEANS</span>
-                <h3>Jean Denver</h3>
-                <p>Jean de corte moderno, cómodo y fácil de combinar.</p>
-                <div class="product-price">
-                    <span class="old-price">$139.900</span>
-                    <strong>$119.900</strong>
-                </div>
-                <button class="add-cart" data-name="Jean Denver" data-price="119900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
+    gap: 8px;
 
-        <article class="product-card"
-            data-gender="hombre"
-            data-category="chaquetas"
-            data-name="Chaqueta Soho">
+    margin-bottom: 15px;
+}
 
-            <div class="product-image">
-                <img src="images/chaqueta_hombre_1.jpg" alt="Chaqueta Soho">
-            </div>
+.old-price {
+    color: #aaa09c;
 
-            <div class="product-info">
-                <span class="category">HOMBRE · CHAQUETAS</span>
-                <h3>Chaqueta Soho</h3>
-                <p>Una capa moderna para completar tu outfit.</p>
-                <div class="product-price">
-                    <strong>$139.900</strong>
-                </div>
-                <button class="add-cart" data-name="Chaqueta Soho" data-price="139900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
+    text-decoration: line-through;
 
-        <article class="product-card"
-            data-gender="hombre"
-            data-category="conjuntos"
-            data-name="Conjunto Urban">
+    font-size: 12px;
+}
 
-            <div class="product-image">
-                <span class="new">NUEVO</span>
-                <img src="images/conjunto_hombre_1.jpg" alt="Conjunto Urban">
-            </div>
+.product-price strong {
+    color: #302727;
 
-            <div class="product-info">
-                <span class="category">HOMBRE · CONJUNTOS</span>
-                <h3>Conjunto Urban</h3>
-                <p>Conjunto moderno para un look completo y cómodo.</p>
-                <div class="product-price">
-                    <strong>$159.900</strong>
-                </div>
-                <button class="add-cart" data-name="Conjunto Urban" data-price="159900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
+    font-size: 17px;
+}
 
 
-        <!-- =================================================
-             PRODUCTOS NIÑA
-        ================================================== -->
+/* =====================================================
+   BOTÓN AGREGAR
+===================================================== */
 
-        <article class="product-card"
-            data-gender="nina"
-            data-category="blusas"
-            data-name="Blusa Princesa">
+.add-cart {
+    width: 100%;
 
-            <div class="product-image">
-                <img src="images/blusa_nina_1.jpg" alt="Blusa Princesa">
-            </div>
+    padding: 11px;
 
-            <div class="product-info">
-                <span class="category">NIÑA · BLUSAS</span>
-                <h3>Blusa Princesa</h3>
-                <p>Diseño delicado y cómodo para niñas.</p>
-                <div class="product-price">
-                    <strong>$49.900</strong>
-                </div>
-                <button class="add-cart" data-name="Blusa Princesa" data-price="49900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
+    background: #2c2424;
 
-        <article class="product-card"
-            data-gender="nina"
-            data-category="blusas"
-            data-name="Blusa Paris">
+    color: white;
 
-            <div class="product-image">
-                <img src="images/blusa_nina_2.jpg" alt="Blusa Paris">
-            </div>
+    border: 1px solid #2c2424;
 
-            <div class="product-info">
-                <span class="category">NIÑA · BLUSAS</span>
-                <h3>Blusa Paris</h3>
-                <p>Una opción fresca y versátil para diferentes ocasiones.</p>
-                <div class="product-price">
-                    <strong>$54.900</strong>
-                </div>
-                <button class="add-cart" data-name="Blusa Paris" data-price="54900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
+    cursor: pointer;
 
-        <article class="product-card"
-            data-gender="nina"
-            data-category="vestidos"
-            data-name="Vestido Luna">
+    font-size: 11px;
 
-            <div class="product-image">
-                <span class="new">NUEVO</span>
-                <img src="images/vestido_nina_1.jpg" alt="Vestido Luna">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑA · VESTIDOS</span>
-                <h3>Vestido Luna</h3>
-                <p>Vestido encantador para ocasiones especiales.</p>
-                <div class="product-price">
-                    <strong>$79.900</strong>
-                </div>
-                <button class="add-cart" data-name="Vestido Luna" data-price="79900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nina"
-            data-category="vestidos"
-            data-name="Vestido Sofía">
-
-            <div class="product-image">
-                <img src="images/vestido_nina_2.jpg" alt="Vestido Sofía">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑA · VESTIDOS</span>
-                <h3>Vestido Sofía</h3>
-                <p>Diseño cómodo y alegre para cada ocasión.</p>
-                <div class="product-price">
-                    <strong>$84.900</strong>
-                </div>
-                <button class="add-cart" data-name="Vestido Sofía" data-price="84900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nina"
-            data-category="jeans"
-            data-name="Jean Mini">
-
-            <div class="product-image">
-                <img src="images/jean_nina_1.jpg" alt="Jean Mini">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑA · JEANS</span>
-                <h3>Jean Mini</h3>
-                <p>Jean práctico para crear looks cómodos y modernos.</p>
-                <div class="product-price">
-                    <strong>$74.900</strong>
-                </div>
-                <button class="add-cart" data-name="Jean Mini" data-price="74900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nina"
-            data-category="pantalones"
-            data-name="Pantalón Kids">
-
-            <div class="product-image">
-                <img src="images/pantalon_nina_1.jpg" alt="Pantalón Kids">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑA · PANTALONES</span>
-                <h3>Pantalón Kids</h3>
-                <p>Comodidad y libertad para acompañar cada aventura.</p>
-                <div class="product-price">
-                    <strong>$69.900</strong>
-                </div>
-                <button class="add-cart" data-name="Pantalón Kids" data-price="69900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nina"
-            data-category="conjuntos"
-            data-name="Conjunto Daisy">
-
-            <div class="product-image">
-                <span class="new">NUEVO</span>
-                <img src="images/conjunto_nina_1.jpg" alt="Conjunto Daisy">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑA · CONJUNTOS</span>
-                <h3>Conjunto Daisy</h3>
-                <p>Conjunto alegre y cómodo para un look completo.</p>
-                <div class="product-price">
-                    <strong>$99.900</strong>
-                </div>
-                <button class="add-cart" data-name="Conjunto Daisy" data-price="99900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nina"
-            data-category="chaquetas"
-            data-name="Chaqueta Mini">
-
-            <div class="product-image">
-                <img src="images/chaqueta_nina_1.jpg" alt="Chaqueta Mini">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑA · CHAQUETAS</span>
-                <h3>Chaqueta Mini</h3>
-                <p>Una prenda versátil para completar cualquier look.</p>
-                <div class="product-price">
-                    <strong>$89.900</strong>
-                </div>
-                <button class="add-cart" data-name="Chaqueta Mini" data-price="89900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-
-        <!-- =================================================
-             PRODUCTOS NIÑO
-        ================================================== -->
-
-        <article class="product-card"
-            data-gender="nino"
-            data-category="camisetas"
-            data-name="Camiseta Junior">
-
-            <div class="product-image">
-                <img src="images/camiseta_nino_1.jpg" alt="Camiseta Junior">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑO · CAMISETAS</span>
-                <h3>Camiseta Junior</h3>
-                <p>Una camiseta cómoda para acompañar todos sus días.</p>
-                <div class="product-price">
-                    <strong>$49.900</strong>
-                </div>
-                <button class="add-cart" data-name="Camiseta Junior" data-price="49900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nino"
-            data-category="camisetas"
-            data-name="Camiseta Sport">
-
-            <div class="product-image">
-                <span class="new">NUEVO</span>
-                <img src="images/camiseta_nino_2.jpg" alt="Camiseta Sport">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑO · CAMISETAS</span>
-                <h3>Camiseta Sport</h3>
-                <p>Diseño dinámico y cómodo para un estilo juvenil.</p>
-                <div class="product-price">
-                    <strong>$54.900</strong>
-                </div>
-                <button class="add-cart" data-name="Camiseta Sport" data-price="54900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nino"
-            data-category="camisas"
-            data-name="Camisa Junior">
-
-            <div class="product-image">
-                <img src="images/camisa_nino_1.jpg" alt="Camisa Junior">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑO · CAMISAS</span>
-                <h3>Camisa Junior</h3>
-                <p>Una camisa práctica para ocasiones especiales.</p>
-                <div class="product-price">
-                    <strong>$69.900</strong>
-                </div>
-                <button class="add-cart" data-name="Camisa Junior" data-price="69900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nino"
-            data-category="camisas"
-            data-name="Camisa Oxford Kids">
-
-            <div class="product-image">
-                <img src="images/camisa_nino_2.jpg" alt="Camisa Oxford Kids">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑO · CAMISAS</span>
-                <h3>Camisa Oxford Kids</h3>
-                <p>Diseño clásico para un look arreglado y cómodo.</p>
-                <div class="product-price">
-                    <strong>$74.900</strong>
-                </div>
-                <button class="add-cart" data-name="Camisa Oxford Kids" data-price="74900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nino"
-            data-category="pantalones"
-            data-name="Pantalón Junior">
-
-            <div class="product-image">
-                <img src="images/pantalon_nino_1.jpg" alt="Pantalón Junior">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑO · PANTALONES</span>
-                <h3>Pantalón Junior</h3>
-                <p>Comodidad y estilo para sus actividades diarias.</p>
-                <div class="product-price">
-                    <strong>$69.900</strong>
-                </div>
-                <button class="add-cart" data-name="Pantalón Junior" data-price="69900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nino"
-            data-category="jeans"
-            data-name="Jean Kids">
-
-            <div class="product-image">
-                <span class="discount">-16%</span>
-                <img src="images/jean_nino_1.jpg" alt="Jean Kids">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑO · JEANS</span>
-                <h3>Jean Kids</h3>
-                <p>Jean versátil para looks cómodos y modernos.</p>
-                <div class="product-price">
-                    <span class="old-price">$94.900</span>
-                    <strong>$79.900</strong>
-                </div>
-                <button class="add-cart" data-name="Jean Kids" data-price="79900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nino"
-            data-category="conjuntos"
-            data-name="Conjunto Urban Kids">
-
-            <div class="product-image">
-                <span class="new">NUEVO</span>
-                <img src="images/conjunto_nino_1.jpg" alt="Conjunto Urban Kids">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑO · CONJUNTOS</span>
-                <h3>Conjunto Urban Kids</h3>
-                <p>Un conjunto práctico para un look completo.</p>
-                <div class="product-price">
-                    <strong>$99.900</strong>
-                </div>
-                <button class="add-cart" data-name="Conjunto Urban Kids" data-price="99900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-        <article class="product-card"
-            data-gender="nino"
-            data-category="chaquetas"
-            data-name="Chaqueta Junior">
-
-            <div class="product-image">
-                <img src="images/chaqueta_nino_1.jpg" alt="Chaqueta Junior">
-            </div>
-
-            <div class="product-info">
-                <span class="category">NIÑO · CHAQUETAS</span>
-                <h3>Chaqueta Junior</h3>
-                <p>Una prenda cómoda para completar sus outfits.</p>
-                <div class="product-price">
-                    <strong>$94.900</strong>
-                </div>
-                <button class="add-cart" data-name="Chaqueta Junior" data-price="94900">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-
-    </div>
-
-
-    <!-- =================================================
-         MENSAJE SIN RESULTADOS
-    ================================================== -->
-
-    <div
-        class="no-results"
-        id="noResults"
-        style="display: none;"
-    >
-
-        <div>
-            🔎
-        </div>
-
-        <h3>
-            No encontramos productos
-        </h3>
-
-        <p>
-            Intenta buscar otra prenda o categoría.
-        </p>
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =================================================
-     NOSOTROS
-================================================== -->
-
-<section id="nosotros" class="about">
-
-    <div class="about-content">
-
-        <span class="section-label">
-            SOBRE NOSOTROS
-        </span>
-
-        <h2>
-            Moda para expresar
-            tu esencia.
-        </h2>
-
-        <p>
-            En Angie Boutique creemos que la moda
-            es una forma de expresar quién eres.
-            Nuestra colección combina tendencias,
-            comodidad y personalidad.
-        </p>
-
-        <a
-            href="#coleccion"
-            class="secondary-button"
-        >
-            Ver colección
-        </a>
-
-    </div>
-
-</section>
-
-
-
-<!-- =================================================
-     CONTACTO
-================================================== -->
-
-<section id="contacto" class="contact">
-
-    <div class="section-title">
-
-        <span>CONTACTO</span>
-
-        <h2>
-            ¿Tienes alguna pregunta?
-        </h2>
-
-        <p>
-            Estamos aquí para ayudarte.
-        </p>
-
-    </div>
-
-
-    <div class="contact-grid">
-
-        <div>
-
-            <strong>
-                📱 WhatsApp
-            </strong>
-
-            <p>
-                300 000 0000
-            </p>
-
-        </div>
-
+    font-weight: bold;
 
-        <div>
-
-            <strong>
-                📧 Email
-            </strong>
+    transition: all 0.3s ease;
+}
 
-            <p>
-                hola@angieboutique.com
-            </p>
+.add-cart:hover {
+    background: #a77973;
 
-        </div>
+    border-color: #a77973;
+}
 
 
-        <div>
+/* =====================================================
+   SIN RESULTADOS
+===================================================== */
 
-            <strong>
-                📍 Ubicación
-            </strong>
+.no-results {
+    width: 100%;
 
-            <p>
-                Ciudad de ejemplo
-            </p>
+    padding: 60px 20px;
 
-        </div>
+    text-align: center;
 
-    </div>
+    color: #776c69;
+}
 
-</section>
+.no-results > div {
+    margin-bottom: 12px;
 
+    font-size: 35px;
+}
 
+.no-results h3 {
+    margin-bottom: 5px;
 
-<!-- =================================================
-     CARRITO
-================================================== -->
+    color: #302727;
 
-<div
-    class="cart-overlay"
-    id="cartOverlay"
-></div>
+    font-family: Georgia, "Times New Roman", serif;
 
+    font-size: 24px;
 
-<aside
-    class="cart"
-    id="cart"
->
+    font-weight: normal;
+}
 
-    <div class="cart-header">
+.no-results p {
+    font-size: 13px;
+}
 
-        <h2>
-            Tu carrito
-        </h2>
 
-        <button id="closeCart">
-            ✕
-        </button>
+/* =====================================================
+   NOSOTROS
+===================================================== */
 
-    </div>
+.about {
+    min-height: 500px;
 
+    display: flex;
 
-    <div
-        class="cart-items"
-        id="cartItems"
-    >
+    align-items: center;
 
-        <p class="empty-cart">
-            Tu carrito está vacío.
-        </p>
+    position: relative;
 
-    </div>
+    background:
+        linear-gradient(
+            rgba(44, 36, 36, 0.65),
+            rgba(44, 36, 36, 0.65)
+        ),
+        url("https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1800&q=85");
 
+    background-size: cover;
 
-    <div class="cart-footer">
+    background-position: center;
+}
 
-        <div class="cart-total">
+.about-content {
+    width: min(800px, 88%);
 
-            <span>
-                Total
-            </span>
+    margin: 0 auto;
 
-            <strong id="cartTotal">
-                $0
-            </strong>
+    text-align: center;
 
-        </div>
+    color: white;
+}
 
+.section-label {
+    display: block;
 
-        <button
-            class="checkout-button"
-            id="checkout"
-        >
-            Realizar pedido
-        </button>
+    margin-bottom: 15px;
 
-    </div>
+    color: #e0bbb5;
 
-</aside>
+    font-size: 10px;
 
+    font-weight: bold;
 
+    letter-spacing: 3px;
+}
 
-<!-- =================================================
-     FOOTER
-================================================== -->
+.about-content h2 {
+    margin-bottom: 20px;
 
-<footer>
+    font-family: Georgia, "Times New Roman", serif;
 
-    <div class="logo">
+    font-size: clamp(35px, 5vw, 55px);
 
-        <span>
-            ANGIE
-        </span>
+    font-weight: normal;
+}
 
-        <small>
-            BOUTIQUE
-        </small>
+.about-content p {
+    max-width: 650px;
 
-    </div>
+    margin: 0 auto 30px;
 
+    color: #f0e9e6;
 
-    <p>
-        Proyecto DEMO — Diseño de tienda online.
-    </p>
+    font-size: 15px;
+}
 
+.secondary-button {
+    display: inline-block;
 
-    <p>
-        © 2026 Angie Boutique
-    </p>
+    padding: 12px 25px;
 
-</footer>
+    border: 1px solid rgba(255,255,255,0.7);
 
+    color: white;
 
+    text-decoration: none;
 
-<!-- =================================================
-     JAVASCRIPT
-================================================== -->
+    font-size: 12px;
 
-<script src="script.js"></script>
+    transition: all 0.3s ease;
+}
+
+.secondary-button:hover {
+    background: white;
+
+    color: #2c2424;
+}
+
+
+/* =====================================================
+   CONTACTO
+===================================================== */
+
+.contact {
+    width: min(1050px, 90%);
+
+    margin: 0 auto;
+
+    padding: 100px 0;
+}
+
+.contact-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.contact-grid > div {
+    padding: 28px 20px;
+
+    background: white;
+
+    border: 1px solid #eee7e3;
+
+    text-align: center;
+}
+
+.contact-grid strong {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #a77973;
+
+    font-size: 13px;
+}
+
+.contact-grid p {
+    color: #655a57;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   CARRITO — PANEL
+===================================================== */
+
+.cart-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1998;
+
+    background: rgba(0,0,0,0.45);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: 0.3s ease;
+}
+
+.cart-overlay.active {
+    opacity: 1;
+
+    visibility: visible;
+}
+
+.cart {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+
+    z-index: 1999;
+
+    width: min(420px, 92vw);
+
+    height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: #fff;
+
+    box-shadow:
+        -10px 0 40px rgba(0,0,0,0.15);
+
+    transform: translateX(100%);
+
+    transition: transform 0.35s ease;
+}
+
+.cart.active {
+    transform: translateX(0);
+}
+
+
+/* =====================================================
+   CABECERA CARRITO
+===================================================== */
+
+.cart-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 22px;
+
+    border-bottom: 1px solid #eee7e3;
+}
+
+.cart-header h2 {
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 25px;
+
+    font-weight: normal;
+}
+
+.cart-header button {
+    border: none;
+
+    background: transparent;
+
+    color: #443a37;
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   ITEMS CARRITO
+===================================================== */
+
+.cart-items {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 20px;
+}
+
+.empty-cart {
+    color: #8c817d;
+
+    text-align: center;
+
+    font-size: 14px;
+}
+
+.cart-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #eee7e3;
+}
+
+.cart-item h4 {
+    margin-bottom: 4px;
+
+    font-size: 14px;
+}
+
+.cart-item p {
+    color: #8a7e79;
+
+    font-size: 12px;
+}
+
+.remove-item {
+    padding: 5px 8px;
+
+    border: none;
+
+    background: #f1e8e5;
+
+    color: #6c5752;
+
+    cursor: pointer;
+
+    border-radius: 3px;
+}
+
+
+/* =====================================================
+   FOOTER CARRITO
+===================================================== */
+
+.cart-footer {
+    padding: 20px;
+
+    border-top: 1px solid #eee7e3;
+}
+
+.cart-total {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+
+    font-size: 15px;
+}
+
+.cart-total strong {
+    font-size: 20px;
+}
+
+.checkout-button {
+    width: 100%;
+
+    padding: 14px;
+
+    background: #2c2424;
+
+    color: white;
+
+    border: none;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    transition: 0.3s ease;
+}
+
+.checkout-button:hover {
+    background: #a77973;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    padding: 45px 20px;
+
+    background: #2c2424;
+
+    color: #cfc2be;
+
+    text-align: center;
+}
+
+footer .logo {
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+footer .logo span {
+    color: white;
+}
+
+footer .logo small {
+    color: #b99b95;
+}
+
+footer p {
+    margin: 5px 0;
+
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1050px) {
+
+    .products-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .collection > article.product-card {
+        width: calc((100% - 48px) / 3);
+    }
+
+    .collection > article.product-card:nth-of-type(4n + 1) {
+        clear: none;
+    }
+
+    .collection > article.product-card:nth-of-type(3n + 1) {
+        clear: left;
+    }
+
+}
+
+
+/* =====================================================
+   TABLET PEQUEÑA
+===================================================== */
+
+@media (max-width: 850px) {
+
+    .header {
+        padding: 15px 4%;
+    }
+
+    .nav {
+        gap: 15px;
+    }
+
+    .nav a {
+        font-size: 12px;
+    }
+
+    .products-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .collection > article.product-card {
+        width: calc((100% - 24px) / 2);
+    }
+
+    .collection > article.product-card:nth-of-type(3n + 1) {
+        clear: none;
+    }
+
+    .collection > article.product-card:nth-of-type(2n + 1) {
+        clear: left;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main-category {
+        padding: 11px 19px;
+    }
+
+}
+
+
+/* =====================================================
+   CELULAR
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .header {
+        position: relative;
+
+        flex-direction: column;
+
+        gap: 15px;
+
+        padding: 17px 15px;
+    }
+
+    .nav {
+        width: 100%;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        gap: 9px 15px;
+    }
+
+    .nav a {
+        font-size: 11px;
+    }
+
+    .cart-button {
+        padding: 8px 12px;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        min-height: 560px;
+    }
+
+    .hero-content {
+        width: 90%;
+    }
+
+    .hero h1 {
+        font-size: 52px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+
+    /* DEMO */
+
+    .demo-notice {
+        width: 91%;
+
+        font-size: 11px;
+    }
+
+
+    /* SECCIONES */
+
+    .featured {
+        width: 90%;
+
+        padding: 65px 0 50px;
+    }
+
+    .collection {
+        width: 92%;
+
+        padding: 55px 0 70px;
+    }
+
+
+    /* BUSCADOR */
+
+    .store-search {
+        margin-bottom: 25px;
+    }
+
+    .search-box input {
+        padding: 14px 42px 14px 10px;
+
+        font-size: 13px;
+    }
+
+
+    /* CATEGORÍAS */
+
+    .main-categories {
+        gap: 8px;
+
+        margin-bottom: 15px;
+    }
+
+    .main-category {
+        padding: 9px 14px;
+
+        font-size: 11px;
+    }
+
+    .subcategory-container {
+        min-height: 48px;
+
+        margin-bottom: 30px;
+    }
+
+    .subcategories {
+        gap: 3px 8px;
+    }
+
+    .subcategory {
+        padding: 7px 10px;
+
+        font-size: 10px;
+    }
+
+
+    /* PRODUCTOS */
+
+    .products-grid {
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+    }
+
+    .collection > article.product-card {
+        float: none;
+
+        width: 100%;
+
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .collection > article.product-card:nth-of-type(2n + 1),
+    .collection > article.product-card:nth-of-type(3n + 1),
+    .collection > article.product-card:nth-of-type(4n + 1) {
+        clear: none;
+    }
+
+    .product-image {
+        aspect-ratio: 4 / 5;
+    }
+
+    .product-info {
+        padding: 17px;
+    }
+
+
+    /* NOSOTROS */
+
+    .about {
+        min-height: 500px;
+    }
+
+
+    /* CONTACTO */
+
+    .contact {
+        padding: 70px 0;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+}
+
+
+/* =====================================================
+   CELULAR PEQUEÑO
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .hero h1 {
+        font-size: 44px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    .product-info h3 {
+        font-size: 19px;
+    }
+
+}
