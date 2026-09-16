@@ -1,3 +1,4 @@
+```css
 /* =====================================================
    ANGIE BOUTIQUE
    DEMO — PLAN PROFESIONAL
@@ -723,11 +724,71 @@ body {
 
     object-fit: cover;
 
+    object-position: center;
+
     transition: transform 0.5s ease;
 }
 
+
+/* =====================================================
+   AJUSTE ESPECIAL POR CATEGORÍA
+===================================================== */
+
+/*
+   MUJER:
+   Conservamos el comportamiento original porque
+   estas imágenes ya quedaron bien.
+*/
+
+.product-card[data-gender="mujer"] .product-image img {
+    object-fit: cover;
+    object-position: center;
+}
+
+
+/*
+   HOMBRE:
+   La imagen completa se mantiene dentro de la tarjeta
+   para evitar que el modelo/prenda se vea demasiado grande.
+*/
+
+.product-card[data-gender="hombre"] .product-image img {
+    object-fit: contain;
+    object-position: center;
+    padding: 8px;
+}
+
+
+/*
+   NIÑA:
+   Ajustamos la imagen completa dentro del espacio.
+*/
+
+.product-card[data-gender="nina"] .product-image img {
+    object-fit: contain;
+    object-position: center;
+    padding: 8px;
+}
+
+
+/*
+   NIÑO:
+   Ajustamos la imagen completa dentro del espacio.
+*/
+
+.product-card[data-gender="nino"] .product-image img {
+    object-fit: contain;
+    object-position: center;
+    padding: 8px;
+}
+
+
+/* =====================================================
+   EFECTO HOVER DE IMAGEN
+===================================================== */
+
 .product-card:hover .product-image img {
-    transform: scale(1.045);
+    transform: scale(1.025);
 }
 
 
@@ -1474,6 +1535,15 @@ footer p {
     }
 
 
+    /* AJUSTE DE IMÁGENES EN CELULAR */
+
+    .product-card[data-gender="hombre"] .product-image img,
+    .product-card[data-gender="nina"] .product-image img,
+    .product-card[data-gender="nino"] .product-image img {
+        padding: 12px;
+    }
+
+
     /* NOSOTROS */
 
     .about {
@@ -1515,3 +1585,4 @@ footer p {
     }
 
 }
+```
