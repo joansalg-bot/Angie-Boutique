@@ -506,6 +506,15 @@
                 Conjuntos
             </button>
 
+            <button
+                class="subcategory"
+                data-category="chaquetas"
+                data-gender="nina"
+                type="button"
+            >
+                Chaquetas
+            </button>
+
         </div>
 
 
@@ -570,6 +579,15 @@
                 type="button"
             >
                 Conjuntos
+            </button>
+
+            <button
+                class="subcategory"
+                data-category="chaquetas"
+                data-gender="nino"
+                type="button"
+            >
+                Chaquetas
             </button>
 
         </div>
@@ -1092,7 +1110,7 @@
         </article>
 
 
-    </div>
+
 
 
 
@@ -1649,6 +1667,9 @@
                 </button>
             </div>
         </article>
+
+
+    </div>
 
 
     <!-- =================================================
