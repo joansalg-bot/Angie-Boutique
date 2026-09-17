@@ -1824,94 +1824,570 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================================
-       PEDIDO
+       PAGO / FINALIZAR PEDIDO
        ========================================================= */
+
+    function injectPaymentStyles() {
+
+        if (document.getElementById("angie-payment-styles")) {
+            return;
+        }
+
+        const style = document.createElement("style");
+        style.id = "angie-payment-styles";
+
+        style.textContent = `
+            .payment-modal-overlay {
+                position: fixed;
+                inset: 0;
+                z-index: 9999;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                padding: 18px;
+                background: rgba(32, 25, 23, .58);
+                backdrop-filter: blur(4px);
+            }
+
+            .payment-modal-overlay.active {
+                display: flex;
+            }
+
+            .payment-modal {
+                width: min(520px, 100%);
+                max-height: min(90vh, 760px);
+                overflow-y: auto;
+                background: #fff;
+                border-radius: 18px;
+                box-shadow: 0 20px 60px rgba(45, 31, 27, .25);
+                padding: 24px;
+                position: relative;
+                color: #4f4541;
+            }
+
+            .payment-close {
+                position: absolute;
+                top: 12px;
+                right: 14px;
+                width: 34px;
+                height: 34px;
+                border: 0;
+                border-radius: 50%;
+                background: #f5efec;
+                color: #665955;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+            .payment-header {
+                text-align: center;
+                padding: 4px 34px 18px;
+            }
+
+            .payment-label {
+                display: inline-block;
+                margin-bottom: 7px;
+                color: #a77973;
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: .12em;
+            }
+
+            .payment-header h2 {
+                margin: 0 0 7px;
+                font-size: 24px;
+                color: #4a403c;
+            }
+
+            .payment-header p {
+                margin: 0;
+                font-size: 13px;
+                line-height: 1.5;
+                color: #857772;
+            }
+
+            .payment-total {
+                margin: 0 0 16px;
+                padding: 14px 16px;
+                border: 1px solid #eee3df;
+                border-radius: 12px;
+                background: #fcf9f7;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+            }
+
+            .payment-total span {
+                font-size: 13px;
+                color: #766a65;
+            }
+
+            .payment-total strong {
+                color: #9a7770;
+                font-size: 20px;
+            }
+
+            .payment-methods-title {
+                margin: 0 0 9px;
+                font-size: 13px;
+                font-weight: 700;
+                color: #514844;
+            }
+
+            .payment-method {
+                width: 100%;
+                border: 1px solid #e5dad6;
+                border-radius: 13px;
+                background: #fff;
+                padding: 14px;
+                margin-bottom: 10px;
+                text-align: left;
+                cursor: pointer;
+                transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+            }
+
+            .payment-method:hover,
+            .payment-method.active {
+                border-color: #b58b83;
+                box-shadow: 0 6px 18px rgba(100, 70, 62, .08);
+            }
+
+            .payment-method:active {
+                transform: translateY(1px);
+            }
+
+            .payment-method-top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            .payment-method-name {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                font-weight: 700;
+                font-size: 14px;
+                color: #4e4541;
+            }
+
+            .payment-method-icon {
+                width: 31px;
+                height: 31px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 9px;
+                background: #f4ebe8;
+                font-size: 16px;
+            }
+
+            .payment-method-arrow {
+                color: #a77973;
+                font-size: 18px;
+            }
+
+            .payment-details {
+                display: none;
+                margin-top: 12px;
+                padding-top: 12px;
+                border-top: 1px solid #eee6e2;
+            }
+
+            .payment-method.active .payment-details {
+                display: block;
+            }
+
+            .payment-detail-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                margin: 7px 0;
+                font-size: 12px;
+            }
+
+            .payment-detail-row span:first-child {
+                color: #8b7e79;
+            }
+
+            .payment-detail-value {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                text-align: right;
+                font-weight: 700;
+                color: #504642;
+            }
+
+            .copy-payment {
+                border: 1px solid #dfd3cf;
+                border-radius: 7px;
+                padding: 5px 8px;
+                background: #fff;
+                color: #8f6e68;
+                font-size: 10px;
+                cursor: pointer;
+            }
+
+            .demo-payment-note {
+                margin-top: 13px;
+                padding: 11px 12px;
+                border-radius: 10px;
+                background: #fff8e8;
+                border: 1px solid #f0dfb7;
+                color: #806b43;
+                font-size: 11px;
+                line-height: 1.5;
+            }
+
+            .payment-confirm {
+                width: 100%;
+                margin-top: 14px;
+                border: 0;
+                border-radius: 10px;
+                padding: 13px 16px;
+                background: #a77973;
+                color: #fff;
+                font-weight: 700;
+                font-size: 13px;
+                cursor: pointer;
+            }
+
+            .payment-confirm:hover {
+                filter: brightness(.96);
+            }
+
+            .payment-confirmation {
+                display: none;
+                text-align: center;
+                padding: 10px 4px 4px;
+            }
+
+            .payment-confirmation.active {
+                display: block;
+            }
+
+            .payment-success-icon {
+                width: 56px;
+                height: 56px;
+                margin: 0 auto 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background: #f0e7e4;
+                font-size: 26px;
+            }
+
+            .payment-confirmation h3 {
+                margin: 0 0 8px;
+                font-size: 21px;
+                color: #4d433f;
+            }
+
+            .payment-confirmation p {
+                margin: 0 auto 14px;
+                max-width: 390px;
+                font-size: 13px;
+                line-height: 1.55;
+                color: #7c706b;
+            }
+
+            .payment-order-summary {
+                text-align: left;
+                max-height: 180px;
+                overflow-y: auto;
+                padding: 12px;
+                border-radius: 10px;
+                background: #faf7f5;
+                border: 1px solid #eee4e0;
+                font-size: 11px;
+                line-height: 1.6;
+                white-space: pre-line;
+            }
+
+            .payment-close-final {
+                width: 100%;
+                margin-top: 12px;
+                border: 1px solid #d9cbc7;
+                border-radius: 10px;
+                padding: 11px 16px;
+                background: #fff;
+                color: #685b56;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            @media (max-width: 650px) {
+                .payment-modal-overlay {
+                    padding: 10px;
+                    align-items: flex-end;
+                }
+
+                .payment-modal {
+                    max-height: 92vh;
+                    border-radius: 18px 18px 12px 12px;
+                    padding: 20px 16px 16px;
+                }
+
+                .payment-header h2 {
+                    font-size: 21px;
+                }
+
+                .payment-detail-row {
+                    align-items: flex-start;
+                }
+            }
+        `;
+
+        document.head.appendChild(style);
+    }
+
+
+    function createPaymentModal() {
+
+        if (document.getElementById("paymentModalOverlay")) {
+            return document.getElementById("paymentModalOverlay");
+        }
+
+        const overlay = document.createElement("div");
+        overlay.className = "payment-modal-overlay";
+        overlay.id = "paymentModalOverlay";
+
+        overlay.innerHTML = `
+            <div class="payment-modal" role="dialog" aria-modal="true" aria-labelledby="paymentModalTitle">
+
+                <button
+                    type="button"
+                    class="payment-close"
+                    id="closePaymentModal"
+                    aria-label="Cerrar pago"
+                >
+                    ✕
+                </button>
+
+                <div id="paymentStep">
+                    <div class="payment-header">
+                        <span class="payment-label">ANGIE BOUTIQUE</span>
+                        <h2 id="paymentModalTitle">Finaliza tu pedido</h2>
+                        <p>Selecciona el medio de pago que prefieras para completar tu compra.</p>
+                    </div>
+
+                    <div class="payment-total">
+                        <span>Total a pagar</span>
+                        <strong id="paymentTotal">$0</strong>
+                    </div>
+
+                    <p class="payment-methods-title">Selecciona un método de pago</p>
+
+                    <button type="button" class="payment-method" data-payment-method="nequi">
+                        <div class="payment-method-top">
+                            <span class="payment-method-name">
+                                <span class="payment-method-icon">💜</span>
+                                Nequi
+                            </span>
+                            <span class="payment-method-arrow">⌄</span>
+                        </div>
+                        <div class="payment-details">
+                            <div class="payment-detail-row">
+                                <span>Número</span>
+                                <span class="payment-detail-value">
+                                    <span>300 000 0000</span>
+                                    <button type="button" class="copy-payment" data-copy="3000000000">Copiar</button>
+                                </span>
+                            </div>
+                            <div class="payment-detail-row">
+                                <span>Titular</span>
+                                <span class="payment-detail-value">Angie Boutique</span>
+                            </div>
+                        </div>
+                    </button>
+
+                    <button type="button" class="payment-method" data-payment-method="bancolombia">
+                        <div class="payment-method-top">
+                            <span class="payment-method-name">
+                                <span class="payment-method-icon">🏦</span>
+                                Bancolombia
+                            </span>
+                            <span class="payment-method-arrow">⌄</span>
+                        </div>
+                        <div class="payment-details">
+                            <div class="payment-detail-row">
+                                <span>Cuenta</span>
+                                <span class="payment-detail-value">
+                                    <span>000-000000-00</span>
+                                    <button type="button" class="copy-payment" data-copy="0000000000">Copiar</button>
+                                </span>
+                            </div>
+                            <div class="payment-detail-row">
+                                <span>Titular</span>
+                                <span class="payment-detail-value">Angie Boutique</span>
+                            </div>
+                        </div>
+                    </button>
+
+                    <div class="demo-payment-note">
+                        <strong>DEMO:</strong> los datos de pago mostrados son ficticios y no corresponden a una cuenta real. En un negocio real se reemplazan por los datos bancarios del cliente.
+                    </div>
+
+                    <button type="button" class="payment-confirm" id="paymentConfirm">
+                        Ya realicé el pago
+                    </button>
+                </div>
+
+                <div class="payment-confirmation" id="paymentConfirmation">
+                    <div class="payment-success-icon">✓</div>
+                    <h3>Pedido registrado</h3>
+                    <p>
+                        Tu pedido quedó preparado correctamente. Recuerda que esta es una demostración y el pago no se realiza realmente.
+                    </p>
+                    <div class="payment-order-summary" id="paymentOrderSummary"></div>
+                    <button type="button" class="payment-close-final" id="paymentCloseFinal">
+                        Volver a la tienda
+                    </button>
+                </div>
+
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        const closeModal = () => {
+            overlay.classList.remove("active");
+            document.body.classList.remove("payment-open");
+        };
+
+        overlay.querySelector("#closePaymentModal")
+            .addEventListener("click", closeModal);
+
+        overlay.querySelector("#paymentCloseFinal")
+            .addEventListener("click", closeModal);
+
+        overlay.addEventListener("click", event => {
+            if (event.target === overlay) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape" && overlay.classList.contains("active")) {
+                closeModal();
+            }
+        });
+
+        overlay.querySelectorAll(".payment-method")
+            .forEach(method => {
+                method.addEventListener("click", event => {
+
+                    if (event.target.closest(".copy-payment")) {
+                        return;
+                    }
+
+                    overlay.querySelectorAll(".payment-method")
+                        .forEach(item => item.classList.remove("active"));
+
+                    method.classList.add("active");
+                });
+            });
+
+        overlay.querySelectorAll(".copy-payment")
+            .forEach(button => {
+                button.addEventListener("click", async event => {
+                    event.stopPropagation();
+
+                    const value = button.dataset.copy || "";
+
+                    try {
+                        await navigator.clipboard.writeText(value);
+                        const originalText = button.textContent;
+                        button.textContent = "Copiado";
+
+                        setTimeout(() => {
+                            button.textContent = originalText;
+                        }, 1400);
+                    } catch (error) {
+                        alert("No fue posible copiar el dato automáticamente.");
+                    }
+                });
+            });
+
+        overlay.querySelector("#paymentConfirm")
+            .addEventListener("click", () => {
+
+                if (cartProducts.length === 0) {
+                    alert("Tu carrito está vacío.");
+                    closeModal();
+                    return;
+                }
+
+                const orderLines = cartProducts.map(product => {
+                    const subtotal = product.price * product.quantity;
+
+                    return `${product.quantity} x ${product.name} (${product.color}, Talla ${product.size}) - ${formatPrice(subtotal)}`;
+                });
+
+                const totalPrice = cartProducts.reduce(
+                    (total, product) =>
+                        total + product.price * product.quantity,
+                    0
+                );
+
+                const summary =
+                    orderLines.join("\n") +
+                    "\n\nTotal: " +
+                    formatPrice(totalPrice);
+
+                overlay.querySelector("#paymentOrderSummary").textContent = summary;
+                overlay.querySelector("#paymentStep").style.display = "none";
+                overlay.querySelector("#paymentConfirmation").classList.add("active");
+            });
+
+        return overlay;
+    }
+
+
+    function openPaymentModal() {
+
+        if (cartProducts.length === 0) {
+            alert("Tu carrito está vacío.");
+            return;
+        }
+
+        const overlay = createPaymentModal();
+
+        const totalPrice = cartProducts.reduce(
+            (total, product) =>
+                total + product.price * product.quantity,
+            0
+        );
+
+        overlay.querySelector("#paymentTotal").textContent =
+            formatPrice(totalPrice);
+
+        overlay.querySelector("#paymentStep").style.display = "block";
+        overlay.querySelector("#paymentConfirmation").classList.remove("active");
+        overlay.querySelectorAll(".payment-method")
+            .forEach(item => item.classList.remove("active"));
+
+        overlay.classList.add("active");
+        document.body.classList.add("payment-open");
+    }
+
+
+    injectPaymentStyles();
+
 
     if (checkout) {
 
         checkout.addEventListener(
             "click",
-            () => {
-
-                if (
-                    cartProducts.length ===
-                    0
-                ) {
-
-                    alert(
-                        "Tu carrito está vacío."
-                    );
-
-
-                    return;
-
-                }
-
-
-                const orderLines =
-                    cartProducts.map(
-                        product => {
-
-                            const subtotal =
-                                product.price *
-                                product.quantity;
-
-
-                            return (
-
-                                `${product.quantity} x ` +
-
-                                `${product.name} ` +
-
-                                `(${product.color}, ` +
-
-                                `Talla ${product.size}) - ` +
-
-                                `${formatPrice(
-                                    subtotal
-                                )}`
-
-                            );
-
-                        }
-                    );
-
-
-                const totalPrice =
-                    cartProducts.reduce(
-                        (
-                            total,
-                            product
-                        ) =>
-                            total +
-                            product.price *
-                            product.quantity,
-                        0
-                    );
-
-
-                const message =
-
-                    "Resumen del pedido:\n\n" +
-
-                    orderLines.join(
-                        "\n"
-                    ) +
-
-                    "\n\nTotal: " +
-
-                    formatPrice(
-                        totalPrice
-                    );
-
-
-                alert(message);
-
-            }
+            openPaymentModal
         );
 
     }
-
 
     /* =========================================================
        ESTADO INICIAL
