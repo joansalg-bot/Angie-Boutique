@@ -1,129 +1,205 @@
 /* =========================================================
    ANGIE BOUTIQUE
-   SISTEMA DE CATEGORÍAS, SUBCATEGORÍAS Y BÚSQUEDA
-========================================================= */
+   FILTROS, BÚSQUEDA Y CARRITO
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* =========================================================
+       ELEMENTOS DEL HTML
+       ========================================================= */
+
+    const mainCategories = document.querySelectorAll(".main-category");
+    const subcategoriesGroups = document.querySelectorAll(".subcategories");
+    const subcategories = document.querySelectorAll(".subcategory");
+    const products = document.querySelectorAll(".product-card");
+
+    const searchInput = document.getElementById("searchInput");
+    const clearSearch = document.getElementById("clearSearch");
+    const noResults = document.getElementById("noResults");
+
+    const productsGrid = document.getElementById("productsGrid");
+
+    const openCart = document.getElementById("openCart");
+    const closeCart = document.getElementById("closeCart");
+    const cart = document.getElementById("cart");
+    const cartOverlay = document.getElementById("cartOverlay");
+    const cartItems = document.getElementById("cartItems");
+    const cartCount = document.getElementById("cartCount");
+    const cartTotal = document.getElementById("cartTotal");
+    const checkout = document.getElementById("checkout");
 
 
-/* =========================================================
-   ELEMENTOS DEL HTML
-========================================================= */
+    /* =========================================================
+       VARIABLES DEL FILTRO
+       ========================================================= */
 
-const mainCategories = document.querySelectorAll(".main-category");
-
-const subcategoriesGroups = document.querySelectorAll(".subcategories");
-
-const subcategories = document.querySelectorAll(".subcategory");
-
-const products = document.querySelectorAll(".product-card");
-
-const searchInput = document.getElementById("searchInput");
-
-const clearSearch = document.getElementById("clearSearch");
-
-const noResults = document.getElementById("noResults");
+    let selectedGender = "todos";
+    let selectedCategory = "todos";
+    let searchText = "";
 
 
-/* =========================================================
-   VARIABLES DEL FILTRO
-========================================================= */
+    /* =========================================================
+       CARRITO
+       ========================================================= */
 
-let selectedGender = "todos";
-
-let selectedCategory = "todos";
-
-let searchText = "";
+    let cartProducts = [];
 
 
-/* =========================================================
-   FUNCIÓN PARA NORMALIZAR TEXTO
-========================================================= */
+    /* =========================================================
+       NORMALIZAR TEXTO
+       ========================================================= */
 
-function normalizeText(text) {
+    function normalizeText(text) {
 
-    return String(text || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim();
+        return String(text || "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim();
 
-}
-
-
-/* =========================================================
-   CAMBIAR CATEGORÍA PRINCIPAL
-========================================================= */
-
-mainCategories.forEach(button => {
-
-    button.addEventListener("click", function () {
-
-        /* -----------------------------------------
-           Obtener género seleccionado
-        ----------------------------------------- */
-
-        selectedGender = normalizeText(
-            button.dataset.gender
-        );
+    }
 
 
-        /* -----------------------------------------
-           Reiniciar subcategoría
-        ----------------------------------------- */
+    /* =========================================================
+       FORMATEAR PRECIOS
+       ========================================================= */
 
-        selectedCategory = "todos";
+    function formatPrice(price) {
 
+        return "$" + Number(price || 0).toLocaleString("es-CO");
 
-        /* -----------------------------------------
-           Quitar activo de todas las categorías
-        ----------------------------------------- */
-
-        mainCategories.forEach(item => {
-
-            item.classList.remove("active");
-
-        });
+    }
 
 
-        /* -----------------------------------------
-           Activar categoría seleccionada
-        ----------------------------------------- */
+    /* =========================================================
+       ORGANIZAR PRODUCTOS
+       ========================================================= */
 
-        button.classList.add("active");
+    /*
+       El HTML actual tiene productos fuera de #productsGrid.
+       Los colocamos todos dentro del mismo contenedor desde
+       JavaScript sin modificar el HTML.
+    */
 
+    if (productsGrid) {
 
-        /* -----------------------------------------
-           Ocultar todos los grupos
-        ----------------------------------------- */
+        products.forEach(product => {
 
-        subcategoriesGroups.forEach(group => {
-
-            group.classList.remove("active");
+            productsGrid.appendChild(product);
 
         });
 
-
-        /* -----------------------------------------
-           Mostrar grupo correspondiente
-        ----------------------------------------- */
-
-        if (selectedGender !== "todos") {
-
-            const selectedGroup =
-                document.querySelector(
-                    `.subcategories[data-subcategory-group="${selectedGender}"]`
-                );
+    }
 
 
-            if (selectedGroup) {
+    /* =========================================================
+       CATEGORÍA PRINCIPAL
+       ========================================================= */
 
-                selectedGroup.classList.add("active");
+    mainCategories.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            selectedGender =
+                normalizeText(button.dataset.gender);
+
+            selectedCategory = "todos";
 
 
-                /* -----------------------------------------
-                   Reiniciar botones de subcategoría
-                ----------------------------------------- */
+            mainCategories.forEach(item => {
 
-                selectedGroup
+                item.classList.remove("active");
+
+            });
+
+
+            button.classList.add("active");
+
+
+            subcategoriesGroups.forEach(group => {
+
+                group.classList.remove("active");
+
+            });
+
+
+            if (selectedGender !== "todos") {
+
+                const selectedGroup =
+                    document.querySelector(
+                        `.subcategories[data-subcategory-group="${selectedGender}"]`
+                    );
+
+
+                if (selectedGroup) {
+
+                    selectedGroup.classList.add("active");
+
+
+                    selectedGroup
+                        .querySelectorAll(".subcategory")
+                        .forEach(item => {
+
+                            item.classList.remove("active");
+
+                        });
+
+
+                    const allButton =
+                        selectedGroup.querySelector(
+                            '.subcategory[data-category="todos"]'
+                        );
+
+
+                    if (allButton) {
+
+                        allButton.classList.add("active");
+
+                    }
+
+                }
+
+            }
+
+
+            filterProducts();
+
+        });
+
+    });
+
+
+    /* =========================================================
+       SUBCATEGORÍAS
+       ========================================================= */
+
+    subcategories.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const buttonGender =
+                normalizeText(button.dataset.gender);
+
+
+            selectedCategory =
+                normalizeText(button.dataset.category);
+
+
+            if (buttonGender) {
+
+                selectedGender = buttonGender;
+
+            }
+
+
+            const currentGroup =
+                button.closest(".subcategories");
+
+
+            if (currentGroup) {
+
+                currentGroup
                     .querySelectorAll(".subcategory")
                     .forEach(item => {
 
@@ -132,338 +208,678 @@ mainCategories.forEach(button => {
                     });
 
 
-                /* -----------------------------------------
-                   Activar "Todas"
-                ----------------------------------------- */
-
-                const allButton =
-                    selectedGroup.querySelector(
-                        '.subcategory[data-category="todos"]'
-                    );
-
-
-                if (allButton) {
-
-                    allButton.classList.add("active");
-
-                }
+                button.classList.add("active");
 
             }
 
-        }
+
+            mainCategories.forEach(categoryButton => {
+
+                const categoryGender =
+                    normalizeText(
+                        categoryButton.dataset.gender
+                    );
 
 
-        /* -----------------------------------------
-           Si se selecciona TODOS
-        ----------------------------------------- */
+                categoryButton.classList.remove("active");
 
-        if (selectedGender === "todos") {
 
-            subcategories.forEach(item => {
+                if (categoryGender === selectedGender) {
 
-                item.classList.remove("active");
+                    categoryButton.classList.add("active");
+
+                }
 
             });
 
-        }
 
+            filterProducts();
 
-        /* -----------------------------------------
-           Aplicar filtro
-        ----------------------------------------- */
-
-        filterProducts();
+        });
 
     });
 
-});
+
+    /* =========================================================
+       BUSCADOR
+       ========================================================= */
+
+    if (searchInput) {
+
+        searchInput.addEventListener("input", () => {
+
+            searchText =
+                normalizeText(searchInput.value);
 
 
-/* =========================================================
-   CAMBIAR SUBCATEGORÍA
-========================================================= */
+            filterProducts();
 
-subcategories.forEach(button => {
+        });
 
-    button.addEventListener("click", function () {
-
-        /* -----------------------------------------
-           Obtener género de la subcategoría
-        ----------------------------------------- */
-
-        const buttonGender =
-            normalizeText(button.dataset.gender);
+    }
 
 
-        /* -----------------------------------------
-           Obtener categoría
-        ----------------------------------------- */
+    /* =========================================================
+       LIMPIAR BÚSQUEDA
+       ========================================================= */
 
-        selectedCategory =
-            normalizeText(button.dataset.category);
+    if (clearSearch) {
 
+        clearSearch.addEventListener("click", () => {
 
-        /* -----------------------------------------
-           Asegurar que el género corresponda
-        ----------------------------------------- */
+            if (searchInput) {
 
-        if (buttonGender) {
+                searchInput.value = "";
 
-            selectedGender = buttonGender;
+                searchInput.focus();
 
-        }
+            }
 
 
-        /* -----------------------------------------
-           Grupo actual
-        ----------------------------------------- */
+            searchText = "";
 
-        const currentGroup =
-            button.closest(".subcategories");
+            filterProducts();
 
+        });
 
-        /* -----------------------------------------
-           Quitar activo del grupo
-        ----------------------------------------- */
-
-        if (currentGroup) {
-
-            currentGroup
-                .querySelectorAll(".subcategory")
-                .forEach(item => {
-
-                    item.classList.remove("active");
-
-                });
-
-        }
+    }
 
 
-        /* -----------------------------------------
-           Activar botón
-        ----------------------------------------- */
+    /* =========================================================
+       FILTRAR PRODUCTOS
+       ========================================================= */
 
-        button.classList.add("active");
+    function filterProducts() {
 
-
-        /* -----------------------------------------
-           Activar categoría principal correspondiente
-        ----------------------------------------- */
-
-        mainCategories.forEach(categoryButton => {
-
-            const categoryGender =
-                normalizeText(categoryButton.dataset.gender);
+        let visibleProducts = 0;
 
 
-            if (categoryGender === selectedGender) {
+        products.forEach(product => {
 
-                mainCategories.forEach(item => {
+            const productGender =
+                normalizeText(
+                    product.dataset.gender
+                );
 
-                    item.classList.remove("active");
 
-                });
+            const productCategory =
+                normalizeText(
+                    product.dataset.category
+                );
 
-                categoryButton.classList.add("active");
+
+            const productName =
+                normalizeText(
+                    product.dataset.name
+                );
+
+
+            const productText =
+                normalizeText(
+                    product.textContent
+                );
+
+
+            const genderMatches =
+                selectedGender === "todos" ||
+                productGender === selectedGender;
+
+
+            const categoryMatches =
+                selectedCategory === "todos" ||
+                productCategory === selectedCategory;
+
+
+            const searchMatches =
+                searchText === "" ||
+                productName.includes(searchText) ||
+                productCategory.includes(searchText) ||
+                productText.includes(searchText);
+
+
+            const shouldShow =
+                genderMatches &&
+                categoryMatches &&
+                searchMatches;
+
+
+            if (shouldShow) {
+
+                product.style.display = "";
+
+                visibleProducts++;
+
+            } else {
+
+                product.style.display = "none";
 
             }
 
         });
 
 
-        /* -----------------------------------------
-           Aplicar filtro
-        ----------------------------------------- */
+        if (noResults) {
 
-        filterProducts();
+            if (visibleProducts === 0) {
 
-    });
+                noResults.style.display = "block";
 
-});
+            } else {
 
+                noResults.style.display = "none";
 
-/* =========================================================
-   BUSCADOR
-========================================================= */
-
-if (searchInput) {
-
-    searchInput.addEventListener("input", function () {
-
-        searchText =
-            normalizeText(searchInput.value);
-
-
-        filterProducts();
-
-    });
-
-}
-
-
-/* =========================================================
-   LIMPIAR BÚSQUEDA
-========================================================= */
-
-if (clearSearch) {
-
-    clearSearch.addEventListener("click", function () {
-
-        if (searchInput) {
-
-            searchInput.value = "";
-
-        }
-
-
-        searchText = "";
-
-
-        filterProducts();
-
-
-        if (searchInput) {
-
-            searchInput.focus();
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   FUNCIÓN PRINCIPAL DE FILTRADO
-========================================================= */
-
-function filterProducts() {
-
-    let visibleProducts = 0;
-
-
-    /* -----------------------------------------
-       Recorrer productos
-    ----------------------------------------- */
-
-    products.forEach(product => {
-
-        /* -----------------------------------------
-           Datos del producto
-        ----------------------------------------- */
-
-        const productGender =
-            normalizeText(product.dataset.gender);
-
-
-        const productCategory =
-            normalizeText(product.dataset.category);
-
-
-        const productName =
-            normalizeText(product.dataset.name);
-
-
-        const productText =
-            normalizeText(product.textContent);
-
-
-        /* -----------------------------------------
-           Coincidencia de género
-        ----------------------------------------- */
-
-        const genderMatches =
-            selectedGender === "todos" ||
-            productGender === selectedGender;
-
-
-        /* -----------------------------------------
-           Coincidencia de categoría
-        ----------------------------------------- */
-
-        const categoryMatches =
-            selectedCategory === "todos" ||
-            productCategory === selectedCategory;
-
-
-        /* -----------------------------------------
-           Coincidencia de búsqueda
-        ----------------------------------------- */
-
-        const searchMatches =
-            searchText === "" ||
-            productName.includes(searchText) ||
-            productCategory.includes(searchText) ||
-            productText.includes(searchText);
-
-
-        /* -----------------------------------------
-           Resultado final
-        ----------------------------------------- */
-
-        const shouldShow =
-            genderMatches &&
-            categoryMatches &&
-            searchMatches;
-
-
-        /* -----------------------------------------
-           Mostrar / ocultar
-        ----------------------------------------- */
-
-        if (shouldShow) {
-
-            product.style.display = "";
-
-            visibleProducts++;
-
-        } else {
-
-            product.style.display = "none";
-
-        }
-
-    });
-
-
-    /* =====================================================
-       MENSAJE SIN RESULTADOS
-    ===================================================== */
-
-    if (noResults) {
-
-        if (visibleProducts === 0) {
-
-            noResults.style.display = "block";
-
-        } else {
-
-            noResults.style.display = "none";
+            }
 
         }
 
     }
 
 
-    /* =====================================================
-       ACTUALIZAR CONTADOR DE PRODUCTOS
-    ===================================================== */
+    /* =========================================================
+       ABRIR CARRITO
+       ========================================================= */
 
-    console.log(
-        "Angie Boutique:",
-        visibleProducts,
-        "productos visibles |",
-        "Género:",
-        selectedGender,
-        "| Categoría:",
-        selectedCategory
-    );
+    function showCart() {
 
-}
+        if (cart) {
+
+            cart.classList.add("active");
+
+        }
 
 
-/* =========================================================
-   INICIALIZAR TIENDA
-========================================================= */
+        if (cartOverlay) {
 
-filterProducts();
+            cartOverlay.classList.add("active");
+
+        }
+
+
+        document.body.classList.add("cart-open");
+
+    }
+
+
+    /* =========================================================
+       CERRAR CARRITO
+       ========================================================= */
+
+    function hideCart() {
+
+        if (cart) {
+
+            cart.classList.remove("active");
+
+        }
+
+
+        if (cartOverlay) {
+
+            cartOverlay.classList.remove("active");
+
+        }
+
+
+        document.body.classList.remove("cart-open");
+
+    }
+
+
+    if (openCart) {
+
+        openCart.addEventListener(
+            "click",
+            showCart
+        );
+
+    }
+
+
+    if (closeCart) {
+
+        closeCart.addEventListener(
+            "click",
+            hideCart
+        );
+
+    }
+
+
+    if (cartOverlay) {
+
+        cartOverlay.addEventListener(
+            "click",
+            hideCart
+        );
+
+    }
+
+
+    /* =========================================================
+       AGREGAR PRODUCTOS AL CARRITO
+       ========================================================= */
+
+    document
+        .querySelectorAll(".add-cart")
+        .forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                const name =
+                    button.dataset.name ||
+                    "Producto";
+
+
+                const price =
+                    Number(
+                        button.dataset.price || 0
+                    );
+
+
+                const existingProduct =
+                    cartProducts.find(
+                        product =>
+                            product.name === name
+                    );
+
+
+                if (existingProduct) {
+
+                    existingProduct.quantity += 1;
+
+                } else {
+
+                    cartProducts.push({
+
+                        name: name,
+
+                        price: price,
+
+                        quantity: 1
+
+                    });
+
+                }
+
+
+                renderCart();
+
+                showCart();
+
+            });
+
+        });
+
+
+    /* =========================================================
+       MOSTRAR CARRITO
+       ========================================================= */
+
+    function renderCart() {
+
+        if (!cartItems) {
+
+            return;
+
+        }
+
+
+        if (cartProducts.length === 0) {
+
+            cartItems.innerHTML = `
+                <p class="empty-cart">
+                    Tu carrito está vacío.
+                </p>
+            `;
+
+        } else {
+
+            cartItems.innerHTML =
+                cartProducts.map(
+                    (product, index) => {
+
+                        const subtotal =
+                            product.price *
+                            product.quantity;
+
+
+                        return `
+                            <div class="cart-item">
+
+                                <div class="cart-item-info">
+
+                                    <strong>
+                                        ${escapeHTML(product.name)}
+                                    </strong>
+
+                                    <span>
+                                        ${formatPrice(product.price)}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="cart-item-controls">
+
+                                    <button
+                                        class="quantity-button"
+                                        data-cart-action="decrease"
+                                        data-index="${index}"
+                                        aria-label="Disminuir cantidad"
+                                    >
+                                        −
+                                    </button>
+
+
+                                    <span>
+                                        ${product.quantity}
+                                    </span>
+
+
+                                    <button
+                                        class="quantity-button"
+                                        data-cart-action="increase"
+                                        data-index="${index}"
+                                        aria-label="Aumentar cantidad"
+                                    >
+                                        +
+                                    </button>
+
+
+                                    <button
+                                        class="remove-cart"
+                                        data-cart-action="remove"
+                                        data-index="${index}"
+                                        aria-label="Eliminar producto"
+                                    >
+                                        ✕
+                                    </button>
+
+                                </div>
+
+
+                                <strong class="cart-item-subtotal">
+
+                                    ${formatPrice(subtotal)}
+
+                                </strong>
+
+                            </div>
+                        `;
+
+                    }
+                ).join("");
+
+        }
+
+
+        updateCartTotals();
+
+    }
+
+
+    /* =========================================================
+       CONTROLES DEL CARRITO
+       ========================================================= */
+
+    if (cartItems) {
+
+        cartItems.addEventListener(
+            "click",
+            event => {
+
+                const button =
+                    event.target.closest(
+                        "[data-cart-action]"
+                    );
+
+
+                if (!button) {
+
+                    return;
+
+                }
+
+
+                const index =
+                    Number(button.dataset.index);
+
+
+                const action =
+                    button.dataset.cartAction;
+
+
+                if (!cartProducts[index]) {
+
+                    return;
+
+                }
+
+
+                if (action === "increase") {
+
+                    cartProducts[index].quantity += 1;
+
+                }
+
+
+                else if (action === "decrease") {
+
+                    cartProducts[index].quantity -= 1;
+
+
+                    if (
+                        cartProducts[index].quantity <= 0
+                    ) {
+
+                        cartProducts.splice(
+                            index,
+                            1
+                        );
+
+                    }
+
+                }
+
+
+                else if (action === "remove") {
+
+                    cartProducts.splice(
+                        index,
+                        1
+                    );
+
+                }
+
+
+                renderCart();
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       ACTUALIZAR TOTALES
+       ========================================================= */
+
+    function updateCartTotals() {
+
+        const totalQuantity =
+            cartProducts.reduce(
+                (total, product) =>
+                    total + product.quantity,
+                0
+            );
+
+
+        const totalPrice =
+            cartProducts.reduce(
+                (total, product) =>
+                    total +
+                    product.price *
+                    product.quantity,
+                0
+            );
+
+
+        if (cartCount) {
+
+            cartCount.textContent =
+                totalQuantity;
+
+        }
+
+
+        if (cartTotal) {
+
+            cartTotal.textContent =
+                formatPrice(totalPrice);
+
+        }
+
+    }
+
+
+    /* =========================================================
+       FINALIZAR PEDIDO
+       ========================================================= */
+
+    if (checkout) {
+
+        checkout.addEventListener(
+            "click",
+            () => {
+
+                if (cartProducts.length === 0) {
+
+                    alert(
+                        "Tu carrito está vacío."
+                    );
+
+                    return;
+
+                }
+
+
+                const orderLines =
+                    cartProducts.map(
+                        product => {
+
+                            const subtotal =
+                                product.price *
+                                product.quantity;
+
+
+                            return (
+                                `${product.quantity} x ` +
+                                `${product.name} - ` +
+                                `${formatPrice(subtotal)}`
+                            );
+
+                        }
+                    );
+
+
+                const totalPrice =
+                    cartProducts.reduce(
+                        (total, product) =>
+                            total +
+                            product.price *
+                            product.quantity,
+                        0
+                    );
+
+
+                const message =
+                    "Resumen del pedido:\n\n" +
+                    orderLines.join("\n") +
+                    "\n\nTotal: " +
+                    formatPrice(totalPrice);
+
+
+                alert(message);
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       SEGURIDAD HTML
+       ========================================================= */
+
+    function escapeHTML(text) {
+
+        return String(text)
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /* =========================================================
+       ESTADO INICIAL
+       ========================================================= */
+
+    const allMainCategory =
+        document.querySelector(
+            '.main-category[data-gender="todos"]'
+        );
+
+
+    if (allMainCategory) {
+
+        mainCategories.forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+
+        allMainCategory.classList.add("active");
+
+    }
+
+
+    subcategoriesGroups.forEach(group => {
+
+        group.classList.remove("active");
+
+    });
+
+
+    /* =========================================================
+       INICIAR
+       ========================================================= */
+
+    filterProducts();
+
+    renderCart();
+
+});
