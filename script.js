@@ -1,148 +1,253 @@
+/* =========================================================
+   ANGIE BOUTIQUE
+   FILTROS, BÚSQUEDA Y CARRITO
+   ========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    const mainCategories = document.querySelectorAll(".main-category");
-    const subcategoriesGroups = document.querySelectorAll(".subcategories");
-    const subcategories = document.querySelectorAll(".subcategory");
-    const products = document.querySelectorAll(".product-card");
+    /* =========================================================
+       ELEMENTOS DEL HTML
+       ========================================================= */
 
-    const searchInput = document.getElementById("searchInput");
-    const clearSearch = document.getElementById("clearSearch");
-    const noResults = document.getElementById("noResults");
-    const productsGrid = document.getElementById("productsGrid");
+    const mainCategories =
+        document.querySelectorAll(".main-category");
 
-    const openCart = document.getElementById("openCart");
-    const closeCart = document.getElementById("closeCart");
-    const cart = document.getElementById("cart");
-    const cartOverlay = document.getElementById("cartOverlay");
-    const cartItems = document.getElementById("cartItems");
-    const cartCount = document.getElementById("cartCount");
-    const cartTotal = document.getElementById("cartTotal");
-    const checkout = document.getElementById("checkout");
+    const subcategoriesGroups =
+        document.querySelectorAll(".subcategories");
+
+    const subcategories =
+        document.querySelectorAll(".subcategory");
+
+    const products =
+        document.querySelectorAll(".product-card");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const clearSearch =
+        document.getElementById("clearSearch");
+
+    const noResults =
+        document.getElementById("noResults");
+
+    const productsGrid =
+        document.getElementById("productsGrid");
+
+    const openCart =
+        document.getElementById("openCart");
+
+    const closeCart =
+        document.getElementById("closeCart");
+
+    const cart =
+        document.getElementById("cart");
+
+    const cartOverlay =
+        document.getElementById("cartOverlay");
+
+    const cartItems =
+        document.getElementById("cartItems");
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    const cartTotal =
+        document.getElementById("cartTotal");
+
+    const checkout =
+        document.getElementById("checkout");
 
 
     /* =========================================================
-       ESTADO
+       VARIABLES DEL FILTRO
        ========================================================= */
 
     let selectedGender = "todos";
+
     let selectedCategory = "todos";
+
     let searchText = "";
+
+
+    /* =========================================================
+       CARRITO
+       ========================================================= */
 
     let cartProducts = [];
 
 
     /* =========================================================
-       NOMBRES DE LAS CATEGORÍAS
+       COLORES Y TALLAS DISPONIBLES
        ========================================================= */
 
-    const genderLabels = {
+    const variantOptions = {
 
-        todos: "Toda la colección",
+        mujer: {
 
-        mujer: "Mujer",
+            sizes: [
+                "XS",
+                "S",
+                "M",
+                "L",
+                "XL"
+            ],
 
-        hombre: "Hombre",
+            colors: [
 
-        nina: "Niña",
+                {
+                    name: "Negro",
+                    hex: "#1f1f1f"
+                },
 
-        nino: "Niño"
+                {
+                    name: "Blanco",
+                    hex: "#ffffff"
+                },
 
-    };
+                {
+                    name: "Rosa",
+                    hex: "#e6b7bd"
+                },
 
+                {
+                    name: "Beige",
+                    hex: "#d8c2a7"
+                },
 
-    /* =========================================================
-       PALABRAS QUE EL BUSCADOR RECONOCE
-       ========================================================= */
+                {
+                    name: "Azul",
+                    hex: "#6f91b8"
+                }
 
-    const genderAliases = {
+            ]
 
-        todos: [
-            "todos",
-            "todo",
-            "coleccion",
-            "coleccion completa",
-            "ropa"
-        ],
-
-        mujer: [
-            "mujer",
-            "mujeres",
-            "dama",
-            "damas",
-            "femenino",
-            "femenina"
-        ],
-
-        hombre: [
-            "hombre",
-            "hombres",
-            "caballero",
-            "caballeros",
-            "masculino",
-            "masculina"
-        ],
-
-        nina: [
-            "nina",
-            "ninas",
-            "niña",
-            "niñas"
-        ],
-
-        nino: [
-            "nino",
-            "ninos",
-            "niño",
-            "niños"
-        ]
-
-    };
+        },
 
 
-    const categoryAliases = {
+        hombre: {
 
-        blusas: [
-            "blusa",
-            "blusas"
-        ],
+            sizes: [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+            ],
 
-        vestidos: [
-            "vestido",
-            "vestidos"
-        ],
+            colors: [
 
-        pantalones: [
-            "pantalon",
-            "pantalones"
-        ],
+                {
+                    name: "Negro",
+                    hex: "#1f1f1f"
+                },
 
-        jeans: [
-            "jean",
-            "jeans",
-            "denim"
-        ],
+                {
+                    name: "Blanco",
+                    hex: "#ffffff"
+                },
 
-        conjuntos: [
-            "conjunto",
-            "conjuntos"
-        ],
+                {
+                    name: "Azul",
+                    hex: "#587ca5"
+                },
 
-        chaquetas: [
-            "chaqueta",
-            "chaquetas"
-        ],
+                {
+                    name: "Beige",
+                    hex: "#d8c2a7"
+                },
 
-        camisas: [
-            "camisa",
-            "camisas"
-        ],
+                {
+                    name: "Gris",
+                    hex: "#929292"
+                }
 
-        camisetas: [
-            "camiseta",
-            "camisetas",
-            "playera",
-            "playeras"
-        ]
+            ]
+
+        },
+
+
+        nina: {
+
+            sizes: [
+                "4",
+                "6",
+                "8",
+                "10",
+                "12"
+            ],
+
+            colors: [
+
+                {
+                    name: "Rosa",
+                    hex: "#e6b7bd"
+                },
+
+                {
+                    name: "Blanco",
+                    hex: "#ffffff"
+                },
+
+                {
+                    name: "Lila",
+                    hex: "#b8a5d1"
+                },
+
+                {
+                    name: "Azul",
+                    hex: "#79a5c9"
+                },
+
+                {
+                    name: "Beige",
+                    hex: "#d8c2a7"
+                }
+
+            ]
+
+        },
+
+
+        nino: {
+
+            sizes: [
+                "4",
+                "6",
+                "8",
+                "10",
+                "12"
+            ],
+
+            colors: [
+
+                {
+                    name: "Azul",
+                    hex: "#587ca5"
+                },
+
+                {
+                    name: "Negro",
+                    hex: "#1f1f1f"
+                },
+
+                {
+                    name: "Blanco",
+                    hex: "#ffffff"
+                },
+
+                {
+                    name: "Gris",
+                    hex: "#929292"
+                },
+
+                {
+                    name: "Verde",
+                    hex: "#7c9a7c"
+                }
+
+            ]
+
+        }
 
     };
 
@@ -151,19 +256,26 @@ document.addEventListener("DOMContentLoaded", () => {
        NORMALIZAR TEXTO
        ========================================================= */
 
-    function normalize(text) {
+    function normalizeText(text) {
 
         return String(text || "")
+
             .toLowerCase()
+
             .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
+
+            .replace(
+                /[\u0300-\u036f]/g,
+                ""
+            )
+
             .trim();
 
     }
 
 
     /* =========================================================
-       FORMATEAR PRECIO
+       FORMATEAR PRECIOS
        ========================================================= */
 
     function formatPrice(price) {
@@ -183,36 +295,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
         return String(text)
 
-            .replace(/&/g, "&amp;")
+            .replace(
+                /&/g,
+                "&amp;"
+            )
 
-            .replace(/</g, "&lt;")
+            .replace(
+                /</g,
+                "&lt;"
+            )
 
-            .replace(/>/g, "&gt;")
+            .replace(
+                />/g,
+                "&gt;"
+            )
 
-            .replace(/"/g, "&quot;")
+            .replace(
+                /"/g,
+                "&quot;"
+            )
 
-            .replace(/'/g, "&#039;");
-
-    }
-
-
-    function escapeAttribute(text) {
-
-        return escapeHTML(text)
-            .replace(/`/g, "&#096;");
+            .replace(
+                /'/g,
+                "&#039;"
+            );
 
     }
 
 
     /* =========================================================
-       MANTENER LOS 32 PRODUCTOS EN EL GRID
+       MANTENER LOS PRODUCTOS DENTRO DEL GRID
        ========================================================= */
 
     if (productsGrid) {
 
         products.forEach(product => {
 
-            productsGrid.appendChild(product);
+            productsGrid.appendChild(
+                product
+            );
 
         });
 
@@ -220,1038 +341,811 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================================
-       OBTENER LAS CATEGORÍAS DESDE EL HTML
+       ESTILOS DE COLORES Y TALLAS
        ========================================================= */
 
-    const categoriesByGender = {
-
-        todos: []
-
-    };
-
-
-    subcategories.forEach(button => {
-
-        const gender =
-            normalize(button.dataset.gender);
-
-        const category =
-            normalize(button.dataset.category);
-
-        const label =
-            button.textContent.trim();
-
-
-        if (!gender || category === "todos") {
-
-            return;
-
-        }
-
-
-        if (!categoriesByGender[gender]) {
-
-            categoriesByGender[gender] = [];
-
-        }
-
+    function injectVariantStyles() {
 
         if (
-            !categoriesByGender[gender]
-                .some(item => item.value === category)
-        ) {
-
-            categoriesByGender[gender].push({
-
-                value: category,
-
-                label: label
-
-            });
-
-        }
-
-
-        if (
-            !categoriesByGender.todos
-                .some(item => item.value === category)
-        ) {
-
-            categoriesByGender.todos.push({
-
-                value: category,
-
-                label: label
-
-            });
-
-        }
-
-    });
-
-
-    /* =========================================================
-       DETECTAR GÉNERO
-       ========================================================= */
-
-    function findGender(text) {
-
-        const value = normalize(text);
-
-
-        for (
-            const [gender, aliases]
-            of Object.entries(genderAliases)
-        ) {
-
-            if (
-                aliases.some(
-                    alias => value === alias
-                )
-            ) {
-
-                return gender;
-
-            }
-
-        }
-
-
-        for (
-            const [gender, aliases]
-            of Object.entries(genderAliases)
-        ) {
-
-            if (
-                aliases.some(
-                    alias => value.includes(alias)
-                )
-            ) {
-
-                return gender;
-
-            }
-
-        }
-
-
-        return null;
-
-    }
-
-
-    /* =========================================================
-       DETECTAR CATEGORÍA
-       ========================================================= */
-
-    function findCategory(text) {
-
-        const value = normalize(text);
-
-
-        for (
-            const [category, aliases]
-            of Object.entries(categoryAliases)
-        ) {
-
-            if (
-                aliases.some(
-                    alias => value === alias
-                )
-            ) {
-
-                return category;
-
-            }
-
-        }
-
-
-        for (
-            const [category, aliases]
-            of Object.entries(categoryAliases)
-        ) {
-
-            if (
-                aliases.some(
-                    alias => value.includes(alias)
-                )
-            ) {
-
-                return category;
-
-            }
-
-        }
-
-
-        return null;
-
-    }
-
-
-    /* =========================================================
-       NUEVO BUSCADOR INTERACTIVO
-       ========================================================= */
-
-    let smartFilter = null;
-
-    let smartGender = null;
-
-    let smartCategory = null;
-
-    let smartSuggestions = null;
-
-    let smartSummary = null;
-
-
-    function createSmartFilter() {
-
-        if (!searchInput) {
-
-            return;
-
-        }
-
-
-        const storeSearch =
-            searchInput.closest(".store-search");
-
-
-        if (!storeSearch) {
-
-            return;
-
-        }
-
-
-        /*
-           Ocultamos los botones antiguos.
-           No los borramos del HTML.
-        */
-
-        mainCategories.forEach(element => {
-
-            element.style.display = "none";
-
-        });
-
-
-        subcategoriesGroups.forEach(element => {
-
-            element.style.display = "none";
-
-        });
-
-
-        const oldContainer =
-            document.querySelector(
-                ".subcategory-container"
-            );
-
-
-        if (oldContainer) {
-
-            oldContainer.style.display = "none";
-
-        }
-
-
-        /* =====================================================
-           CREAR NUEVO PANEL
-           ===================================================== */
-
-        smartFilter =
-            document.createElement("div");
-
-
-        smartFilter.className =
-            "smart-filter";
-
-
-        smartFilter.innerHTML = `
-
-            <div class="smart-filter-top">
-
-                <div class="smart-filter-field">
-
-                    <span class="smart-filter-label">
-                        Explora nuestra colección
-                    </span>
-
-                    <span class="smart-filter-hint">
-                        Escribe qué buscas, por ejemplo:
-                        <strong>hombre</strong>,
-                        <strong>camisas</strong>
-                        o
-                        <strong>hombre jeans</strong>.
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="smart-filter-controls">
-
-                <label class="smart-select-wrap">
-
-                    <span>
-                        ¿Para quién?
-                    </span>
-
-                    <select id="smartGender">
-
-                        <option value="todos">
-                            Toda la colección
-                        </option>
-
-                        <option value="mujer">
-                            Mujer
-                        </option>
-
-                        <option value="hombre">
-                            Hombre
-                        </option>
-
-                        <option value="nina">
-                            Niña
-                        </option>
-
-                        <option value="nino">
-                            Niño
-                        </option>
-
-                    </select>
-
-                </label>
-
-
-                <label class="smart-select-wrap">
-
-                    <span>
-                        Tipo de prenda
-                    </span>
-
-                    <select id="smartCategory">
-
-                        <option value="todos">
-                            Todas las prendas
-                        </option>
-
-                    </select>
-
-                </label>
-
-
-                <button
-                    type="button"
-                    class="smart-reset"
-                    id="smartReset"
-                >
-                    Limpiar
-                </button>
-
-            </div>
-
-
-            <div
-                class="smart-summary"
-                id="smartSummary"
-            ></div>
-
-
-            <div
-                class="smart-suggestions"
-                id="smartSuggestions"
-            ></div>
-
-        `;
-
-
-        storeSearch.insertAdjacentElement(
-            "afterend",
-            smartFilter
-        );
-
-
-        smartGender =
             document.getElementById(
-                "smartGender"
-            );
-
-
-        smartCategory =
-            document.getElementById(
-                "smartCategory"
-            );
-
-
-        smartSuggestions =
-            document.getElementById(
-                "smartSuggestions"
-            );
-
-
-        smartSummary =
-            document.getElementById(
-                "smartSummary"
-            );
-
-
-        /* =====================================================
-           CAMBIAR GÉNERO
-           ===================================================== */
-
-        smartGender.addEventListener(
-            "change",
-            () => {
-
-                selectedGender =
-                    smartGender.value;
-
-
-                selectedCategory =
-                    "todos";
-
-
-                searchText = "";
-
-
-                updateCategoryOptions();
-
-                updateSmartUI();
-
-                filterProducts();
-
-            }
-        );
-
-
-        /* =====================================================
-           CAMBIAR TIPO DE PRENDA
-           ===================================================== */
-
-        smartCategory.addEventListener(
-            "change",
-            () => {
-
-                selectedCategory =
-                    smartCategory.value;
-
-
-                searchText = "";
-
-
-                updateSmartUI();
-
-                filterProducts();
-
-            }
-        );
-
-
-        /* =====================================================
-           LIMPIAR
-           ===================================================== */
-
-        document
-            .getElementById("smartReset")
-            .addEventListener(
-                "click",
-                resetFilters
-            );
-
-
-        updateCategoryOptions();
-
-        updateSmartUI();
-
-    }
-
-
-    /* =========================================================
-       ACTUALIZAR CATEGORÍAS DISPONIBLES
-       ========================================================= */
-
-    function updateCategoryOptions() {
-
-        if (!smartCategory) {
-
-            return;
-
-        }
-
-
-        const available =
-            categoriesByGender[selectedGender] ||
-            categoriesByGender.todos;
-
-
-        smartCategory.innerHTML = `
-
-            <option value="todos">
-                Todas las prendas
-            </option>
-
-            ${
-                available.map(item => `
-
-                    <option
-                        value="${escapeAttribute(item.value)}"
-                    >
-                        ${escapeHTML(item.label)}
-                    </option>
-
-                `).join("")
-            }
-
-        `;
-
-
-        smartCategory.value =
-            available.some(
-                item =>
-                    item.value === selectedCategory
+                "angie-variant-styles"
             )
-                ? selectedCategory
-                : "todos";
+        ) {
+
+            return;
+
+        }
 
 
-        selectedCategory =
-            smartCategory.value;
+        const style =
+            document.createElement(
+                "style"
+            );
+
+
+        style.id =
+            "angie-variant-styles";
+
+
+        style.textContent = `
+
+            .product-variants {
+
+                margin: 6px 0 8px;
+
+                padding-top: 7px;
+
+                border-top:
+                    1px solid #eee5e1;
+
+            }
+
+
+            .variant-group {
+
+                margin-bottom: 7px;
+
+            }
+
+
+            .variant-group:last-child {
+
+                margin-bottom: 0;
+
+            }
+
+
+            .variant-heading {
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content:
+                    space-between;
+
+                gap: 8px;
+
+                margin-bottom: 4px;
+
+                color: #5f5551;
+
+                font-size: 10px;
+
+                letter-spacing: .02em;
+
+            }
+
+
+            .variant-heading strong {
+
+                color: #9a7770;
+
+                font-size: 9px;
+
+                font-weight: 500;
+
+            }
+
+
+            .color-options,
+            .size-options {
+
+                display: flex;
+
+                align-items: center;
+
+                flex-wrap: wrap;
+
+                gap: 5px;
+
+            }
+
+
+            .color-swatch {
+
+                width: 20px;
+
+                height: 20px;
+
+                padding: 0;
+
+                border:
+                    1px solid #d6ceca;
+
+                border-radius: 50%;
+
+                background:
+                    var(--swatch-color);
+
+                cursor: pointer;
+
+                position: relative;
+
+                box-shadow:
+                    0 0 0 1px
+                    rgba(255,255,255,.7)
+                    inset;
+
+                transition:
+                    transform .2s ease,
+                    box-shadow .2s ease;
+
+            }
+
+
+            .color-swatch:hover {
+
+                transform:
+                    translateY(-1px);
+
+            }
+
+
+            .color-swatch.selected {
+
+                box-shadow:
+                    0 0 0 2px
+                    #a77973,
+                    0 0 0 3px
+                    #fff;
+
+            }
+
+
+            .size-option {
+
+                min-width: 27px;
+
+                height: 25px;
+
+                padding: 0 6px;
+
+                border:
+                    1px solid #d8ceca;
+
+                border-radius: 4px;
+
+                background: #fff;
+
+                color: #514946;
+
+                cursor: pointer;
+
+                font-family: inherit;
+
+                font-size: 10px;
+
+                transition:
+                    all .2s ease;
+
+            }
+
+
+            .size-option:hover,
+            .size-option.selected {
+
+                border-color:
+                    #a77973;
+
+                background:
+                    #a77973;
+
+                color: #fff;
+
+            }
+
+
+            .cart-item-variant {
+
+                display: block;
+
+                margin-top: 3px;
+
+                color: #8b7d78;
+
+                font-size: 11px;
+
+            }
+
+
+            @media (max-width: 650px) {
+
+                .product-variants {
+
+                    margin-top: 5px;
+
+                    margin-bottom: 7px;
+
+                    padding-top: 6px;
+
+                }
+
+
+                .variant-heading {
+
+                    font-size: 10px;
+
+                }
+
+
+                .color-swatch {
+
+                    width: 21px;
+
+                    height: 21px;
+
+                }
+
+            }
+
+        `;
+
+
+        document.head.appendChild(
+            style
+        );
 
     }
 
 
     /* =========================================================
-       ACTUALIZAR INFORMACIÓN DEL PANEL
+       OBTENER OPCIONES SEGÚN EL PRODUCTO
        ========================================================= */
 
-    function updateSmartUI() {
+    function getVariantOptions(gender) {
 
-        if (!smartGender || !smartCategory) {
+        return (
+            variantOptions[gender] ||
+            variantOptions.mujer
+        );
 
-            return;
-
-        }
-
-
-        smartGender.value =
-            selectedGender;
+    }
 
 
-        smartCategory.value =
-            selectedCategory;
+    /* =========================================================
+       CREAR SELECTORES EN CADA PRODUCTO
+       ========================================================= */
 
+    function addVariantSelectors() {
 
-        if (!smartSummary) {
+        products.forEach(product => {
 
-            return;
-
-        }
-
-
-        const parts = [];
-
-
-        if (selectedGender !== "todos") {
-
-            parts.push(
-                genderLabels[selectedGender]
-            );
-
-        }
-
-
-        if (selectedCategory !== "todos") {
-
-            const available =
-                categoriesByGender[selectedGender] ||
-                categoriesByGender.todos;
-
-
-            const item =
-                available.find(
-                    category =>
-                        category.value ===
-                        selectedCategory
+            const productInfo =
+                product.querySelector(
+                    ".product-info"
                 );
 
 
-            parts.push(
-                item
-                    ? item.label
-                    : selectedCategory
-            );
-
-        }
+            const addButton =
+                product.querySelector(
+                    ".add-cart"
+                );
 
 
-        if (searchText) {
+            if (
+                !productInfo ||
+                !addButton
+            ) {
 
-            parts.push(
-                `"${searchText}"`
-            );
+                return;
 
-        }
-
-
-        if (parts.length) {
-
-            smartSummary.innerHTML =
-                `Mostrando:
-                <strong>
-                    ${escapeHTML(parts.join(" · "))}
-                </strong>`;
-
-        } else {
-
-            smartSummary.innerHTML =
-                "Puedes escribir directamente lo que necesitas y la colección se filtrará automáticamente.";
-
-        }
-
-    }
+            }
 
 
-    /* =========================================================
-       SUGERENCIAS DEL BUSCADOR
-       ========================================================= */
+            if (
+                productInfo.querySelector(
+                    ".product-variants"
+                )
+            ) {
 
-    function updateSuggestions() {
+                return;
 
-        if (
-            !smartSuggestions ||
-            !searchInput
-        ) {
-
-            return;
-
-        }
+            }
 
 
-        const query =
-            normalize(searchInput.value);
+            const gender =
+                normalizeText(
+                    product.dataset.gender
+                );
 
 
-        if (!query) {
-
-            smartSuggestions.innerHTML =
-                "";
-
-
-            smartSuggestions.classList.remove(
-                "visible"
-            );
+            const options =
+                getVariantOptions(
+                    gender
+                );
 
 
-            return;
-
-        }
-
-
-        const suggestions = [];
+            const variants =
+                document.createElement(
+                    "div"
+                );
 
 
-        const gender =
-            findGender(query);
+            variants.className =
+                "product-variants";
 
 
-        const category =
-            findCategory(query);
+            variants.innerHTML = `
+
+                <div class="variant-group">
+
+                    <div class="variant-heading">
+
+                        <span>
+                            Color disponible
+                        </span>
+
+                        <strong
+                            class="selected-color-label"
+                        >
+                            Selecciona un color
+                        </strong>
+
+                    </div>
 
 
-        if (gender) {
+                    <div
+                        class="color-options"
+                    >
 
-            suggestions.push({
+                        ${
+                            options.colors
+                                .map(
+                                    color => `
 
-                type: "gender",
+                                        <button
+                                            type="button"
 
-                value: gender,
+                                            class="color-swatch"
 
-                title:
-                    genderLabels[gender],
+                                            data-color="${escapeHTML(
+                                                color.name
+                                            )}"
 
-                text:
-                    `Ver toda la colección de
-                    ${genderLabels[
-                        gender
-                    ].toLowerCase()}`
+                                            title="${escapeHTML(
+                                                color.name
+                                            )}"
 
-            });
+                                            aria-label="Color ${escapeHTML(
+                                                color.name
+                                            )}"
 
-        }
+                                            style="
+                                                --swatch-color:
+                                                ${color.hex};
+                                            "
+                                        ></button>
 
+                                    `
+                                )
+                                .join("")
+                        }
 
-        if (category) {
+                    </div>
 
-            suggestions.push({
-
-                type: "category",
-
-                value: category,
-
-                title:
-                    category
-                        .charAt(0)
-                        .toUpperCase() +
-                    category.slice(1),
-
-                text:
-                    selectedGender === "todos"
-
-                        ? `Buscar ${category}`
-
-                        : `Ver ${category} de
-                           ${genderLabels[
-                               selectedGender
-                           ].toLowerCase()}`
-
-            });
-
-        }
+                </div>
 
 
-        if (!suggestions.length) {
+                <div class="variant-group">
 
-            smartSuggestions.innerHTML = `
+                    <div class="variant-heading">
 
-                <div class="smart-suggestion-empty">
+                        <span>
+                            Talla disponible
+                        </span>
 
-                    Sigue escribiendo para buscar
-                    por nombre, categoría o público.
+                        <strong
+                            class="selected-size-label"
+                        >
+                            Selecciona una talla
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="size-options"
+                    >
+
+                        ${
+                            options.sizes
+                                .map(
+                                    size => `
+
+                                        <button
+                                            type="button"
+
+                                            class="size-option"
+
+                                            data-size="${escapeHTML(
+                                                size
+                                            )}"
+                                        >
+                                            ${escapeHTML(
+                                                size
+                                            )}
+                                        </button>
+
+                                    `
+                                )
+                                .join("")
+                        }
+
+                    </div>
 
                 </div>
 
             `;
 
 
-            smartSuggestions.classList.add(
-                "visible"
+            productInfo.insertBefore(
+                variants,
+                addButton
             );
 
 
-            return;
-
-        }
-
-
-        smartSuggestions.innerHTML =
-
-            suggestions.map(item => `
-
-                <button
-                    type="button"
-                    class="smart-suggestion"
-
-                    data-suggestion-type="${item.type}"
-
-                    data-suggestion-value="${escapeAttribute(
-                        item.value
-                    )}"
-                >
-
-                    <span
-                        class="smart-suggestion-icon"
-                    >
-                        ${
-                            item.type === "gender"
-                                ? "◉"
-                                : "◇"
-                        }
-                    </span>
-
-
-                    <span>
-
-                        <strong>
-                            ${escapeHTML(item.title)}
-                        </strong>
-
-                        <small>
-                            ${escapeHTML(item.text)}
-                        </small>
-
-                    </span>
-
-                </button>
-
-            `).join("");
-
-
-        smartSuggestions.classList.add(
-            "visible"
-        );
-
-
-        smartSuggestions
-            .querySelectorAll(
-                ".smart-suggestion"
-            )
-            .forEach(button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        const type =
-                            button.dataset
-                                .suggestionType;
-
-
-                        const value =
-                            button.dataset
-                                .suggestionValue;
-
-
-                        if (type === "gender") {
-
-                            selectedGender =
-                                value;
-
-
-                            selectedCategory =
-                                "todos";
-
-
-                            searchText = "";
-
-
-                            searchInput.value =
-                                genderLabels[value];
-
-                        } else {
-
-                            selectedCategory =
-                                value;
-
-
-                            searchText = "";
-
-                        }
-
-
-                        updateCategoryOptions();
-
-                        updateSmartUI();
-
-                        filterProducts();
-
-                        closeSuggestions();
-
-                    }
+            const colorButtons =
+                variants.querySelectorAll(
+                    ".color-swatch"
                 );
 
-            });
+
+            const sizeButtons =
+                variants.querySelectorAll(
+                    ".size-option"
+                );
+
+
+            const colorLabel =
+                variants.querySelector(
+                    ".selected-color-label"
+                );
+
+
+            const sizeLabel =
+                variants.querySelector(
+                    ".selected-size-label"
+                );
+
+
+            colorButtons.forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            colorButtons
+                                .forEach(
+                                    item => {
+
+                                        item.classList
+                                            .remove(
+                                                "selected"
+                                            );
+
+                                    }
+                                );
+
+
+                            button.classList.add(
+                                "selected"
+                            );
+
+
+                            colorLabel.textContent =
+                                button.dataset.color;
+
+                        }
+                    );
+
+                }
+            );
+
+
+            sizeButtons.forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            sizeButtons
+                                .forEach(
+                                    item => {
+
+                                        item.classList
+                                            .remove(
+                                                "selected"
+                                            );
+
+                                    }
+                                );
+
+
+                            button.classList.add(
+                                "selected"
+                            );
+
+
+                            sizeLabel.textContent =
+                                button.dataset.size;
+
+                        }
+                    );
+
+                }
+            );
+
+        });
 
     }
 
 
-    function closeSuggestions() {
+    /* =========================================================
+       OBTENER COLOR Y TALLA SELECCIONADOS
+       ========================================================= */
 
-        if (smartSuggestions) {
+    function getSelectedVariant(
+        product
+    ) {
 
-            smartSuggestions.classList.remove(
-                "visible"
+        const colorButton =
+            product.querySelector(
+                ".color-swatch.selected"
+            );
+
+
+        const sizeButton =
+            product.querySelector(
+                ".size-option.selected"
+            );
+
+
+        return {
+
+            color:
+                colorButton
+                    ? colorButton.dataset.color
+                    : "",
+
+            size:
+                sizeButton
+                    ? sizeButton.dataset.size
+                    : ""
+
+        };
+
+    }
+
+
+    /* =========================================================
+       CATEGORÍA PRINCIPAL
+       ========================================================= */
+
+    mainCategories.forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    selectedGender =
+                        normalizeText(
+                            button.dataset.gender
+                        );
+
+
+                    selectedCategory =
+                        "todos";
+
+
+                    mainCategories.forEach(
+                        item => {
+
+                            item.classList
+                                .remove(
+                                    "active"
+                                );
+
+                        }
+                    );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    subcategoriesGroups
+                        .forEach(
+                            group => {
+
+                                group.classList
+                                    .remove(
+                                        "active"
+                                    );
+
+                            }
+                        );
+
+
+                    if (
+                        selectedGender !==
+                        "todos"
+                    ) {
+
+                        const selectedGroup =
+                            document.querySelector(
+                                `.subcategories[data-subcategory-group="${selectedGender}"]`
+                            );
+
+
+                        if (
+                            selectedGroup
+                        ) {
+
+                            selectedGroup.classList
+                                .add(
+                                    "active"
+                                );
+
+
+                            selectedGroup
+                                .querySelectorAll(
+                                    ".subcategory"
+                                )
+                                .forEach(
+                                    item => {
+
+                                        item.classList
+                                            .remove(
+                                                "active"
+                                            );
+
+                                    }
+                                );
+
+
+                            const allButton =
+                                selectedGroup
+                                    .querySelector(
+                                        '.subcategory[data-category="todos"]'
+                                    );
+
+
+                            if (
+                                allButton
+                            ) {
+
+                                allButton.classList
+                                    .add(
+                                        "active"
+                                    );
+
+                            }
+
+                        }
+
+                    }
+
+
+                    filterProducts();
+
+                }
             );
 
         }
-
-    }
+    );
 
 
     /* =========================================================
-       PROCESAR LO QUE ESCRIBE EL CLIENTE
+       SUBCATEGORÍAS
        ========================================================= */
 
-    function processSearch(value) {
+    subcategories.forEach(
+        button => {
 
-        const normalized =
-            normalize(value);
+            button.addEventListener(
+                "click",
+                () => {
 
-
-        if (!normalized) {
-
-            selectedGender =
-                "todos";
-
-
-            selectedCategory =
-                "todos";
-
-
-            searchText = "";
-
-
-            updateCategoryOptions();
-
-            updateSmartUI();
-
-            filterProducts();
-
-            return;
-
-        }
-
-
-        const detectedGender =
-            findGender(normalized);
-
-
-        const detectedCategory =
-            findCategory(normalized);
-
-
-        /*
-           Si detectamos "hombre",
-           automáticamente seleccionamos Hombre.
-        */
-
-        if (detectedGender) {
-
-            selectedGender =
-                detectedGender;
-
-        }
-
-
-        /*
-           Si detectamos "camisas",
-           automáticamente seleccionamos Camisas.
-        */
-
-        if (detectedCategory) {
-
-            selectedCategory =
-                detectedCategory;
-
-        }
-
-
-        /*
-           Quitamos las palabras utilizadas
-           como filtros para que no interfieran
-           con la búsqueda.
-        */
-
-        let remaining =
-            normalized;
-
-
-        if (detectedGender) {
-
-            [
-                ...genderAliases[
-                    detectedGender
-                ]
-
-            ]
-
-                .sort(
-                    (a, b) =>
-                        b.length - a.length
-                )
-
-                .forEach(alias => {
-
-                    remaining =
-                        remaining.replace(
-                            normalize(alias),
-                            " "
+                    const buttonGender =
+                        normalizeText(
+                            button.dataset.gender
                         );
 
-                });
 
-        }
-
-
-        if (detectedCategory) {
-
-            [
-                ...categoryAliases[
-                    detectedCategory
-                ]
-
-            ]
-
-                .sort(
-                    (a, b) =>
-                        b.length - a.length
-                )
-
-                .forEach(alias => {
-
-                    remaining =
-                        remaining.replace(
-                            normalize(alias),
-                            " "
+                    selectedCategory =
+                        normalizeText(
+                            button.dataset.category
                         );
 
-                });
+
+                    if (buttonGender) {
+
+                        selectedGender =
+                            buttonGender;
+
+                    }
+
+
+                    const currentGroup =
+                        button.closest(
+                            ".subcategories"
+                        );
+
+
+                    if (currentGroup) {
+
+                        currentGroup
+                            .querySelectorAll(
+                                ".subcategory"
+                            )
+                            .forEach(
+                                item => {
+
+                                    item.classList
+                                        .remove(
+                                            "active"
+                                        );
+
+                                }
+                            );
+
+
+                        button.classList.add(
+                            "active"
+                        );
+
+                    }
+
+
+                    mainCategories.forEach(
+                        categoryButton => {
+
+                            const categoryGender =
+                                normalizeText(
+                                    categoryButton
+                                        .dataset
+                                        .gender
+                                );
+
+
+                            categoryButton.classList
+                                .remove(
+                                    "active"
+                                );
+
+
+                            if (
+                                categoryGender ===
+                                selectedGender
+                            ) {
+
+                                categoryButton.classList
+                                    .add(
+                                        "active"
+                                    );
+
+                            }
+
+                        }
+                    );
+
+
+                    filterProducts();
+
+                }
+            );
 
         }
-
-
-        searchText =
-            remaining
-                .replace(/\s+/g, " ")
-                .trim();
-
-
-        updateCategoryOptions();
-
-        updateSmartUI();
-
-        filterProducts();
-
-    }
+    );
 
 
     /* =========================================================
-       LIMPIAR TODO
-       ========================================================= */
-
-    function resetFilters() {
-
-        selectedGender =
-            "todos";
-
-
-        selectedCategory =
-            "todos";
-
-
-        searchText = "";
-
-
-        if (searchInput) {
-
-            searchInput.value = "";
-
-        }
-
-
-        updateCategoryOptions();
-
-        updateSmartUI();
-
-        closeSuggestions();
-
-        filterProducts();
-
-
-        if (searchInput) {
-
-            searchInput.focus();
-
-        }
-
-    }
-
-
-    /* =========================================================
-       EVENTOS DEL BUSCADOR
+       BUSCADOR
        ========================================================= */
 
     if (searchInput) {
@@ -1260,81 +1154,49 @@ document.addEventListener("DOMContentLoaded", () => {
             "input",
             () => {
 
-                processSearch(
-                    searchInput.value
-                );
-
-
-                updateSuggestions();
-
-            }
-        );
-
-
-        searchInput.addEventListener(
-            "focus",
-            updateSuggestions
-        );
-
-
-        searchInput.addEventListener(
-            "keydown",
-            event => {
-
-                if (event.key === "Enter") {
-
-                    event.preventDefault();
-
-                    processSearch(
+                searchText =
+                    normalizeText(
                         searchInput.value
                     );
 
-                    closeSuggestions();
 
-                }
-
-
-                if (event.key === "Escape") {
-
-                    closeSuggestions();
-
-                }
+                filterProducts();
 
             }
         );
 
     }
 
+
+    /* =========================================================
+       LIMPIAR BÚSQUEDA
+       ========================================================= */
 
     if (clearSearch) {
 
         clearSearch.addEventListener(
             "click",
-            resetFilters
+            () => {
+
+                if (searchInput) {
+
+                    searchInput.value =
+                        "";
+
+                    searchInput.focus();
+
+                }
+
+
+                searchText = "";
+
+
+                filterProducts();
+
+            }
         );
 
     }
-
-
-    document.addEventListener(
-        "click",
-        event => {
-
-            if (
-                !event.target.closest(
-                    ".smart-filter"
-                ) &&
-                !event.target.closest(
-                    ".store-search"
-                )
-            ) {
-
-                closeSuggestions();
-
-            }
-
-        }
-    );
 
 
     /* =========================================================
@@ -1343,77 +1205,100 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function filterProducts() {
 
-        let visible = 0;
+        let visibleProducts = 0;
 
 
-        products.forEach(product => {
+        products.forEach(
+            product => {
 
-            const gender =
-                normalize(
-                    product.dataset.gender
-                );
-
-
-            const category =
-                normalize(
-                    product.dataset.category
-                );
+                const productGender =
+                    normalizeText(
+                        product.dataset.gender
+                    );
 
 
-            const name =
-                normalize(
-                    product.dataset.name
-                );
+                const productCategory =
+                    normalizeText(
+                        product.dataset.category
+                    );
 
 
-            const text =
-                normalize(
-                    product.textContent
-                );
+                const productName =
+                    normalizeText(
+                        product.dataset.name
+                    );
 
 
-            const genderOK =
-                selectedGender === "todos" ||
-                gender === selectedGender;
+                const productText =
+                    normalizeText(
+                        product.textContent
+                    );
 
 
-            const categoryOK =
-                selectedCategory === "todos" ||
-                category === selectedCategory;
+                const genderMatches =
+                    selectedGender ===
+                        "todos" ||
+
+                    productGender ===
+                        selectedGender;
 
 
-            const searchOK =
-                !searchText ||
-                name.includes(searchText) ||
-                category.includes(searchText) ||
-                text.includes(searchText);
+                const categoryMatches =
+                    selectedCategory ===
+                        "todos" ||
+
+                    productCategory ===
+                        selectedCategory;
 
 
-            const show =
-                genderOK &&
-                categoryOK &&
-                searchOK;
+                const searchMatches =
+                    searchText === "" ||
+
+                    productName.includes(
+                        searchText
+                    ) ||
+
+                    productCategory.includes(
+                        searchText
+                    ) ||
+
+                    productText.includes(
+                        searchText
+                    );
 
 
-            product.style.display =
-                show ? "" : "none";
+                const shouldShow =
+                    genderMatches &&
+                    categoryMatches &&
+                    searchMatches;
 
 
-            if (show) {
+                if (
+                    shouldShow
+                ) {
 
-                visible++;
+                    product.style.display =
+                        "";
+
+                    visibleProducts++;
+
+                } else {
+
+                    product.style.display =
+                        "none";
+
+                }
 
             }
-
-        });
+        );
 
 
         if (noResults) {
 
             noResults.style.display =
-                visible
-                    ? "none"
-                    : "block";
+                visibleProducts === 0
+                    ? "block"
+                    : "none";
 
         }
 
@@ -1421,9 +1306,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================================
-       CARRITO
-       
-       ESTA PARTE SE CONSERVA.
+       ABRIR CARRITO
        ========================================================= */
 
     function showCart() {
@@ -1452,6 +1335,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
+    /* =========================================================
+       CERRAR CARRITO
+       ========================================================= */
 
     function hideCart() {
 
@@ -1511,68 +1398,130 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================================
-       AGREGAR AL CARRITO
+       PREPARAR COLORES Y TALLAS
+       ========================================================= */
+
+    injectVariantStyles();
+
+    addVariantSelectors();
+
+
+    /* =========================================================
+       AGREGAR PRODUCTO AL CARRITO
        ========================================================= */
 
     document
         .querySelectorAll(".add-cart")
-        .forEach(button => {
+        .forEach(
+            button => {
 
-            button.addEventListener(
-                "click",
-                () => {
+                button.addEventListener(
+                    "click",
+                    () => {
 
-                    const name =
-                        button.dataset.name ||
-                        "Producto";
-
-
-                    const price =
-                        Number(
-                            button.dataset.price ||
-                            0
-                        );
+                        const name =
+                            button.dataset.name ||
+                            "Producto";
 
 
-                    const existing =
-                        cartProducts.find(
-                            product =>
-                                product.name ===
-                                name
-                        );
+                        const price =
+                            Number(
+                                button.dataset.price ||
+                                0
+                            );
 
 
-                    if (existing) {
+                        const productCard =
+                            button.closest(
+                                ".product-card"
+                            );
 
-                        existing.quantity += 1;
 
-                    } else {
+                        const variant =
+                            productCard
+                                ? getSelectedVariant(
+                                    productCard
+                                )
+                                : {
+                                    color: "",
+                                    size: ""
+                                };
 
-                        cartProducts.push({
 
-                            name: name,
+                        if (
+                            !variant.color ||
+                            !variant.size
+                        ) {
 
-                            price: price,
+                            alert(
+                                "Selecciona un color y una talla antes de agregar el producto al carrito."
+                            );
 
-                            quantity: 1
 
-                        });
+                            return;
+
+                        }
+
+
+                        const existingProduct =
+                            cartProducts.find(
+                                product =>
+
+                                    product.name ===
+                                        name &&
+
+                                    product.color ===
+                                        variant.color &&
+
+                                    product.size ===
+                                        variant.size
+                            );
+
+
+                        if (
+                            existingProduct
+                        ) {
+
+                            existingProduct.quantity +=
+                                1;
+
+                        } else {
+
+                            cartProducts.push({
+
+                                name:
+                                    name,
+
+                                price:
+                                    price,
+
+                                color:
+                                    variant.color,
+
+                                size:
+                                    variant.size,
+
+                                quantity:
+                                    1
+
+                            });
+
+                        }
+
+
+                        renderCart();
+
+                        showCart();
 
                     }
+                );
 
-
-                    renderCart();
-
-                    showCart();
-
-                }
-            );
-
-        });
+            }
+        );
 
 
     /* =========================================================
-       MOSTRAR CARRITO
+       RENDERIZAR CARRITO
        ========================================================= */
 
     function renderCart() {
@@ -1584,7 +1533,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        if (!cartProducts.length) {
+        if (
+            cartProducts.length ===
+            0
+        ) {
 
             cartItems.innerHTML = `
 
@@ -1597,9 +1549,13 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
 
             cartItems.innerHTML =
+
                 cartProducts
                     .map(
-                        (product, index) => {
+                        (
+                            product,
+                            index
+                        ) => {
 
                             const subtotal =
                                 product.price *
@@ -1622,11 +1578,27 @@ document.addEventListener("DOMContentLoaded", () => {
                                             )}
                                         </strong>
 
+
                                         <span>
                                             ${formatPrice(
                                                 product.price
                                             )}
                                         </span>
+
+
+                                        <small
+                                            class="cart-item-variant"
+                                        >
+                                            ${escapeHTML(
+                                                product.color ||
+                                                "Color no indicado"
+                                            )}
+                                            · Talla
+                                            ${escapeHTML(
+                                                product.size ||
+                                                "No indicada"
+                                            )}
+                                        </small>
 
                                     </div>
 
@@ -1639,6 +1611,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                             class="quantity-button"
                                             data-cart-action="decrease"
                                             data-index="${index}"
+                                            aria-label="Disminuir cantidad"
                                         >
                                             −
                                         </button>
@@ -1653,6 +1626,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                             class="quantity-button"
                                             data-cart-action="increase"
                                             data-index="${index}"
+                                            aria-label="Aumentar cantidad"
                                         >
                                             +
                                         </button>
@@ -1662,6 +1636,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                             class="remove-cart"
                                             data-cart-action="remove"
                                             data-index="${index}"
+                                            aria-label="Eliminar producto"
                                         >
                                             ✕
                                         </button>
@@ -1726,7 +1701,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     button.dataset.cartAction;
 
 
-                if (!cartProducts[index]) {
+                if (
+                    !cartProducts[index]
+                ) {
 
                     return;
 
@@ -1740,25 +1717,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     cartProducts[
                         index
-                    ].quantity += 1;
+                    ].quantity +=
+                        1;
 
                 }
 
 
-                if (
+                else if (
                     action ===
                     "decrease"
                 ) {
 
                     cartProducts[
                         index
-                    ].quantity -= 1;
+                    ].quantity -=
+                        1;
 
 
                     if (
                         cartProducts[
                             index
-                        ].quantity <= 0
+                        ].quantity <=
+                        0
                     ) {
 
                         cartProducts.splice(
@@ -1771,7 +1751,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                if (
+                else if (
                     action ===
                     "remove"
                 ) {
@@ -1793,24 +1773,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================================
-       TOTALES DEL CARRITO
+       ACTUALIZAR TOTALES
        ========================================================= */
 
     function updateCartTotals() {
 
-        const quantity =
+        const totalQuantity =
             cartProducts.reduce(
-                (total, product) =>
+                (
+                    total,
+                    product
+                ) =>
                     total +
                     product.quantity,
                 0
             );
 
 
-        const total =
+        const totalPrice =
             cartProducts.reduce(
-                (sum, product) =>
-                    sum +
+                (
+                    total,
+                    product
+                ) =>
+                    total +
                     product.price *
                     product.quantity,
                 0
@@ -1820,7 +1806,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cartCount) {
 
             cartCount.textContent =
-                quantity;
+                totalQuantity;
 
         }
 
@@ -1828,7 +1814,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cartTotal) {
 
             cartTotal.textContent =
-                formatPrice(total);
+                formatPrice(
+                    totalPrice
+                );
 
         }
 
@@ -1836,7 +1824,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================================
-       FINALIZAR PEDIDO
+       PEDIDO
        ========================================================= */
 
     if (checkout) {
@@ -1845,48 +1833,79 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             () => {
 
-                if (!cartProducts.length) {
+                if (
+                    cartProducts.length ===
+                    0
+                ) {
 
                     alert(
                         "Tu carrito está vacío."
                     );
+
 
                     return;
 
                 }
 
 
-                const lines =
+                const orderLines =
                     cartProducts.map(
-                        product =>
-                            `${product.quantity} x ${product.name} - ${formatPrice(
+                        product => {
+
+                            const subtotal =
                                 product.price *
-                                product.quantity
-                            )}`
+                                product.quantity;
+
+
+                            return (
+
+                                `${product.quantity} x ` +
+
+                                `${product.name} ` +
+
+                                `(${product.color}, ` +
+
+                                `Talla ${product.size}) - ` +
+
+                                `${formatPrice(
+                                    subtotal
+                                )}`
+
+                            );
+
+                        }
                     );
 
 
-                const total =
+                const totalPrice =
                     cartProducts.reduce(
-                        (sum, product) =>
-                            sum +
+                        (
+                            total,
+                            product
+                        ) =>
+                            total +
                             product.price *
                             product.quantity,
                         0
                     );
 
 
-                alert(
+                const message =
 
                     "Resumen del pedido:\n\n" +
 
-                    lines.join("\n") +
+                    orderLines.join(
+                        "\n"
+                    ) +
 
                     "\n\nTotal: " +
 
-                    formatPrice(total)
+                    formatPrice(
+                        totalPrice
+                    );
 
-                );
+
+                alert(message);
 
             }
         );
@@ -1895,10 +1914,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================================
-       INICIAR
+       ESTADO INICIAL
        ========================================================= */
 
-    createSmartFilter();
+    const allMainCategory =
+        document.querySelector(
+            '.main-category[data-gender="todos"]'
+        );
+
+
+    if (allMainCategory) {
+
+        mainCategories.forEach(
+            item => {
+
+                item.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        allMainCategory.classList.add(
+            "active"
+        );
+
+    }
+
+
+    subcategoriesGroups.forEach(
+        group => {
+
+            group.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    /* =========================================================
+       INICIAR
+       ========================================================= */
 
     filterProducts();
 
