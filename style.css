@@ -484,6 +484,172 @@ body {
 }
 
 
+
+/* =====================================================
+   BUSCADOR Y CATEGORÍAS — ANGIE BOUTIQUE
+===================================================== */
+
+.store-search {
+    width: min(610px, 100%);
+    margin: 0 0 10px;
+}
+
+.search-box {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 13px;
+    z-index: 2;
+    font-size: 18px;
+    line-height: 1;
+}
+
+#searchInput {
+    width: 100%;
+    height: 42px;
+    padding: 0 42px 0 39px;
+    border: 1px solid #d8ceca;
+    border-radius: 6px;
+    outline: none;
+    background: #fff;
+    color: #403938;
+    font-family: inherit;
+    font-size: 13px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#searchInput:focus {
+    border-color: #a77973;
+    box-shadow: 0 0 0 3px rgba(167, 121, 115, 0.10);
+}
+
+#searchInput::placeholder {
+    color: #8b817d;
+}
+
+.clear-search {
+    position: absolute;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    color: #756a66;
+    cursor: pointer;
+    font-size: 17px;
+    line-height: 1;
+}
+
+.clear-search:hover {
+    color: #a77973;
+}
+
+
+/* =====================================================
+   CATEGORÍAS PRINCIPALES
+===================================================== */
+
+.main-categories {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.main-category {
+    padding: 8px 14px;
+    border: 1px solid #d8ceca;
+    border-radius: 7px;
+    background: #fff;
+    color: #403938;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    transition: all 0.25s ease;
+}
+
+.main-category:hover,
+.main-category.active {
+    background: #a77973;
+    border-color: #a77973;
+    color: #fff;
+}
+
+
+/* =====================================================
+   SUBCATEGORÍAS
+===================================================== */
+
+.subcategory-container {
+    margin-bottom: 25px;
+}
+
+.subcategories {
+    display: none;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.subcategories.active {
+    display: flex;
+}
+
+.subcategory {
+    padding: 6px 9px;
+    border: 1px solid #d8ceca;
+    border-radius: 5px;
+    background: #fff;
+    color: #403938;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    transition: all 0.25s ease;
+}
+
+.subcategory:hover,
+.subcategory.active {
+    background: #f1e8e5;
+    border-color: #a77973;
+    color: #6d514d;
+}
+
+
+/* =====================================================
+   SIN RESULTADOS
+===================================================== */
+
+#noResults {
+    padding: 35px 15px;
+    text-align: center;
+    color: #776c69;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   TARJETAS — ACABADO DEL MOCKUP
+===================================================== */
+
+.product-card {
+    border-radius: 9px;
+}
+
+.product-image {
+    border-radius: 8px 8px 0 0;
+}
+
+.product-info {
+    background: #fff;
+}
+
 /* =====================================================
    PRODUCTOS
 ===================================================== */
@@ -546,13 +712,13 @@ body {
 
     display: block;
 
-    object-fit: cover;
+    object-fit: contain;
 
     transition: transform 0.5s ease;
 }
 
 .product-card:hover .product-image img {
-    transform: scale(1.045);
+    transform: scale(1.015);
 }
 
 
@@ -1194,6 +1360,18 @@ footer p {
         width: 92%;
 
         padding: 55px 0 70px;
+    }
+
+
+    /* BUSCADOR Y CATEGORÍAS */
+
+    .store-search {
+        width: 100%;
+    }
+
+    .main-categories,
+    .subcategories {
+        justify-content: flex-start;
     }
 
 
