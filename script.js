@@ -1854,15 +1854,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             .payment-modal {
-                width: min(520px, 100%);
+                width: min(500px, calc(100vw - 28px));
+                max-width: 500px;
                 max-height: min(90vh, 760px);
+                overflow-x: hidden;
                 overflow-y: auto;
+                box-sizing: border-box;
                 background: #fff;
                 border-radius: 18px;
                 box-shadow: 0 20px 60px rgba(45, 31, 27, .25);
                 padding: 24px;
                 position: relative;
                 color: #4f4541;
+            }
+
+            .payment-modal,
+            .payment-modal * {
+                box-sizing: border-box;
             }
 
             .payment-close {
@@ -1936,13 +1944,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             .payment-method {
+                display: block;
                 width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
                 border: 1px solid #e5dad6;
                 border-radius: 13px;
                 background: #fff;
                 padding: 14px;
                 margin-bottom: 10px;
                 text-align: left;
+                font-family: inherit;
+                font-size: inherit;
                 cursor: pointer;
                 transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
             }
@@ -1959,6 +1972,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             .payment-method-top {
                 display: flex;
+                width: 100%;
+                min-width: 0;
                 align-items: center;
                 justify-content: space-between;
                 gap: 10px;
@@ -1966,6 +1981,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             .payment-method-name {
                 display: flex;
+                min-width: 0;
                 align-items: center;
                 gap: 9px;
                 font-weight: 700;
@@ -1987,6 +2003,11 @@ document.addEventListener("DOMContentLoaded", () => {
             .payment-method-arrow {
                 color: #a77973;
                 font-size: 18px;
+                transition: transform .2s ease;
+            }
+
+            .payment-method.active .payment-method-arrow {
+                transform: rotate(180deg);
             }
 
             .payment-details {
@@ -2016,6 +2037,8 @@ document.addEventListener("DOMContentLoaded", () => {
             .payment-detail-value {
                 display: flex;
                 align-items: center;
+                min-width: 0;
+                flex-wrap: wrap;
                 gap: 7px;
                 text-align: right;
                 font-weight: 700;
@@ -2124,13 +2147,24 @@ document.addEventListener("DOMContentLoaded", () => {
             @media (max-width: 650px) {
                 .payment-modal-overlay {
                     padding: 10px;
-                    align-items: flex-end;
+                    align-items: center;
                 }
 
                 .payment-modal {
+                    width: min(100%, 500px);
+                    max-width: 100%;
                     max-height: 92vh;
-                    border-radius: 18px 18px 12px 12px;
+                    border-radius: 18px;
                     padding: 20px 16px 16px;
+                }
+
+                .payment-detail-row {
+                    flex-wrap: wrap;
+                }
+
+                .payment-detail-value {
+                    width: 100%;
+                    justify-content: flex-end;
                 }
 
                 .payment-header h2 {
@@ -2183,7 +2217,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <p class="payment-methods-title">Selecciona un método de pago</p>
 
-                    <button type="button" class="payment-method" data-payment-method="nequi">
+                    <div class="payment-method" data-payment-method="nequi" role="button" tabindex="0">
                         <div class="payment-method-top">
                             <span class="payment-method-name">
                                 <span class="payment-method-icon">💜</span>
@@ -2204,9 +2238,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <span class="payment-detail-value">Angie Boutique</span>
                             </div>
                         </div>
-                    </button>
+                    </div>
 
-                    <button type="button" class="payment-method" data-payment-method="bancolombia">
+                    <div class="payment-method" data-payment-method="bancolombia" role="button" tabindex="0">
                         <div class="payment-method-top">
                             <span class="payment-method-name">
                                 <span class="payment-method-icon">🏦</span>
@@ -2227,7 +2261,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <span class="payment-detail-value">Angie Boutique</span>
                             </div>
                         </div>
-                    </button>
+                    </div>
 
                     <div class="demo-payment-note">
                         <strong>DEMO:</strong> los datos de pago mostrados son ficticios y no corresponden a una cuenta real. En un negocio real se reemplazan por los datos bancarios del cliente.
@@ -2278,6 +2312,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        const selectPaymentMethod = method => {
+            overlay.querySelectorAll(".payment-method")
+                .forEach(item => item.classList.remove("active"));
+
+            method.classList.add("active");
+        };
+
         overlay.querySelectorAll(".payment-method")
             .forEach(method => {
                 method.addEventListener("click", event => {
@@ -2286,10 +2327,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         return;
                     }
 
-                    overlay.querySelectorAll(".payment-method")
-                        .forEach(item => item.classList.remove("active"));
+                    selectPaymentMethod(method);
+                });
 
-                    method.classList.add("active");
+                method.addEventListener("keydown", event => {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        selectPaymentMethod(method);
+                    }
                 });
             });
 
@@ -2355,6 +2400,8 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Tu carrito está vacío.");
             return;
         }
+
+        hideCart();
 
         const overlay = createPaymentModal();
 
