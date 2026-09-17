@@ -533,9 +533,9 @@ body {
 
     width: 100%;
 
-    /* Imagen más compacta para que nombre y precio entren
-       en la misma vista de la tarjeta */
-    aspect-ratio: 4 / 3;
+    /* Tarjeta compacta: permite ver imagen + información
+       + botón sin tener que bajar demasiado */
+    aspect-ratio: 1 / 1;
 
     background: #eee8e4;
 }
@@ -592,7 +592,7 @@ body {
 ===================================================== */
 
 .product-info {
-    padding: 13px 15px 15px;
+    padding: 12px 15px 14px;
 }
 
 .category {
@@ -624,7 +624,7 @@ body {
 .product-info p {
     min-height: 0;
 
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 
     color: #776c69;
 
@@ -645,7 +645,7 @@ body {
 
     gap: 8px;
 
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 }
 
 .old-price {
@@ -670,7 +670,7 @@ body {
 .add-cart {
     width: 100%;
 
-    padding: 11px;
+    padding: 9px;
 
     background: #2c2424;
 
@@ -1221,11 +1221,11 @@ footer p {
     }
 
     .product-image {
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 1 / 1;
     }
 
     .product-info {
-        padding: 17px;
+        padding: 12px 14px 14px;
     }
 
 
