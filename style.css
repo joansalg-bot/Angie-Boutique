@@ -533,7 +533,9 @@ body {
 
     width: 100%;
 
-    aspect-ratio: 4 / 5;
+    /* Imagen más compacta para que nombre y precio entren
+       en la misma vista de la tarjeta */
+    aspect-ratio: 4 / 3;
 
     background: #eee8e4;
 }
@@ -590,13 +592,13 @@ body {
 ===================================================== */
 
 .product-info {
-    padding: 18px 17px 20px;
+    padding: 13px 15px 15px;
 }
 
 .category {
     display: block;
 
-    margin-bottom: 6px;
+    margin-bottom: 3px;
 
     color: #a77973;
 
@@ -608,21 +610,21 @@ body {
 }
 
 .product-info h3 {
-    margin-bottom: 7px;
+    margin-bottom: 4px;
 
     color: #302727;
 
     font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 20px;
+    font-size: 18px;
 
     font-weight: normal;
 }
 
 .product-info p {
-    min-height: 42px;
+    min-height: 0;
 
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 
     color: #776c69;
 
@@ -643,7 +645,7 @@ body {
 
     gap: 8px;
 
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 .old-price {
@@ -1219,7 +1221,7 @@ footer p {
     }
 
     .product-image {
-        aspect-ratio: 4 / 5;
+        aspect-ratio: 4 / 3;
     }
 
     .product-info {
